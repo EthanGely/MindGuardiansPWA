@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import './slideshow.scss';
 
+
 interface Slide {
     img: string;
     title: string;
@@ -41,7 +42,8 @@ const SlideShow: React.FC<ChildComponentProps> = ({ slides }) => {
                                 <div className="visuel"><img src={slide.img} alt={slide.title} /></div>
                                 <h2>{slide.title}</h2>
                                 <p>{slide.description}</p>
-                                <button onClick={() => nextSlide()}>{slide.buttonLabel}</button>
+                                {index === slides.length - 1 ? <a href="/login" className="button">{slide.buttonLabel}</a> : 
+                                <button onClick={() => nextSlide()}>{slide.buttonLabel}</button>}
                             </div>
                         </div>
                     ))}

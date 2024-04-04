@@ -4,6 +4,7 @@ import logoMgNoir from "../../assets/Logo-Noir.svg";
 import controller from "../../assets/controller.svg";
 import simulation from "../../assets/simulation.svg";
 
+
 function Fonctionnalites() {
 
     let slides: [{ img: string, title: string, description: string, buttonLabel: string }] = [
