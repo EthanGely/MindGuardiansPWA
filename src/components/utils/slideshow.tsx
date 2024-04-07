@@ -17,7 +17,11 @@ interface ChildComponentProps {
 
 const SlideShow: React.FC<ChildComponentProps> = ({ slides }) => {
 
-    const [currentSlide, setCurrentSlide] = useState(0);
+    const [startX, setStartX] = useState<number>(0);
+    const [currentX, setCurrentX] = useState<number>(0);
+    const [isSwiping, setIsSwiping] = useState<boolean>(false);
+    const [currentSlide, setCurrentSlide] = useState<number>(0);
+
 
     const nextSlide = () => {
         setCurrentSlide((prevSlide) => (prevSlide === slides.length - 1 ? 0 : prevSlide + 1));
@@ -26,6 +30,11 @@ const SlideShow: React.FC<ChildComponentProps> = ({ slides }) => {
     const goToSlide = (index: React.SetStateAction<number>) => {
         setCurrentSlide(index);
     };
+
+    function clickLast() {
+        localStorage.setItem('notFirstTime', 'true');
+        window.location.href = "/login";
+    }
 
     return (
         <>
@@ -36,14 +45,16 @@ const SlideShow: React.FC<ChildComponentProps> = ({ slides }) => {
                             key={index}
                             className={index === currentSlide ? 'slide active' : 'slide'}
                             style={{
-                                transform: `translateX(-${currentSlide * 100}%)`
+                                transform: `translateX(calc(-${currentSlide * 100}% + ${isSwiping ? (startX - currentX) : 0}px))`,
+                                zIndex: index === currentSlide ? 1 : 0,
+                                left: index < currentSlide ? '-100%' : index > currentSlide ? '100%' : 0
                             }}>
                             <div className="content">
                                 <div className="visuel"><img src={slide.img} alt={slide.title} /></div>
                                 <h2>{slide.title}</h2>
                                 <p>{slide.description}</p>
-                                {index === slides.length - 1 ? <a href="/login" className="button">{slide.buttonLabel}</a> : 
-                                <button onClick={() => nextSlide()}>{slide.buttonLabel}</button>}
+                                {index === slides.length - 1 ? <button onClick={() => {clickLast()}} className="button">{slide.buttonLabel}</button> :
+                                    <button onClick={() => nextSlide()}>{slide.buttonLabel}</button>}
                             </div>
                         </div>
                     ))}
