@@ -41,7 +41,7 @@ const SlideShow: React.FC<ChildComponentProps> = ({ slides }) => {
                             key={index}
                             className={index === currentSlide ? 'slide active' : 'slide'}
                             style={{
-                                transform: `translateX(calc(-${currentSlide * 100}% + ${isSwiping ? (startX - currentX) : 0}px))`,
+                                transform: `translateX(-${currentSlide * 100}%)`,
                                 zIndex: index === currentSlide ? 1 : 0,
                                 left: index < currentSlide ? '-100%' : index > currentSlide ? '100%' : 0
                             }}>
