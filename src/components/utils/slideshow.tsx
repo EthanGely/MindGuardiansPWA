@@ -16,10 +16,6 @@ interface ChildComponentProps {
 
 
 const SlideShow: React.FC<ChildComponentProps> = ({ slides }) => {
-
-    const [startX, setStartX] = useState<number>(0);
-    const [currentX, setCurrentX] = useState<number>(0);
-    const [isSwiping, setIsSwiping] = useState<boolean>(false);
     const [currentSlide, setCurrentSlide] = useState<number>(0);
 
 
