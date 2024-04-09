@@ -26,7 +26,7 @@ const Signin = () => {
     const handleSignIn = async (event: FormEvent) => {
         event.preventDefault();
 
-        const responsePromise = fetch('http://82.66.255.189:3002/auth/signin', {
+        const responsePromise = fetch('https://ethan-server.com:3002/auth/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

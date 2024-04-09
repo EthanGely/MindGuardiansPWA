@@ -19,7 +19,7 @@ const Login = () => {
         event.preventDefault();
 
 
-        const responsePromise = fetch('http://82.66.255.189:3002/auth/login', {
+        const responsePromise = fetch('https://ethan-server.com:3002/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
