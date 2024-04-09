@@ -37,7 +37,7 @@ function SlideShow(slides: any) {
                                 <div className="visuel"><img src={slide.img} alt={slide.title} /></div>
                                 <h2>{slide.title}</h2>
                                 <p>{slide.description}</p>
-                                {index === slides.slides.length - 1 ? <button onClick={() => {clickLast()}} className="button">{slide.buttonLabel}</button> :
+                                {index === slides.slides.length - 1 ? <button onClick={() => { clickLast() }} className="button">{slide.buttonLabel}</button> :
                                     <button onClick={() => nextSlide()}>{slide.buttonLabel}</button>}
                             </div>
                         </div>
