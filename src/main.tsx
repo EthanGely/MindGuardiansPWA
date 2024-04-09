@@ -10,7 +10,7 @@ import ErrorPage from "./components/error";
 import './App.css'
 import './index.css'
 /*
-const serveur = "https://ethan-server.com:3002";
+const serveur = "https://ethan-server.com:8443";
 
 
 async function checkToken() {
