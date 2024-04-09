@@ -2,13 +2,8 @@
 import React, { useState } from 'react';
 import './slideshow.scss';
 
-// Attention, quand on passe un array de slides à cette fonction, on a un objet qui contient un array de slides, d'où
-// l'écriture slides.slides.map() plus bas.
-function SlideShow(slides: any) {
 
-    const [startX, setStartX] = useState<number>(0);
-    const [currentX, setCurrentX] = useState<number>(0);
-    const [isSwiping, setIsSwiping] = useState<boolean>(false);
+function SlideShow(slides: any) {
     const [currentSlide, setCurrentSlide] = useState<number>(0);
 
 
@@ -34,7 +29,7 @@ function SlideShow(slides: any) {
                             key={index}
                             className={index === currentSlide ? 'slide active' : 'slide'}
                             style={{
-                                transform: `translateX(calc(-${currentSlide * 100}% + ${isSwiping ? (startX - currentX) : 0}px))`,
+                                transform: `translateX(-${currentSlide * 100}%)`,
                                 zIndex: index === currentSlide ? 1 : 0,
                                 left: index < currentSlide ? '-100%' : index > currentSlide ? '100%' : 0
                             }}>
