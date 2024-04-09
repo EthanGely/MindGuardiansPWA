@@ -3,9 +3,10 @@ import Login from './login/login';
 import Signin from './signin/signin';
 import './log.scss';
 
-const Log = () => {
+function Log() {
     const [isLogIn, setIsLogIn] = useState(false);
     const [isSignIn, setIsSignIn] = useState(false);
+    console.log("GOT HERE")
 
     return (
         <div>

@@ -1,5 +1,4 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-import { serveur, router } from "../../../main";
 
 const Signin = () => {
 
@@ -27,7 +26,7 @@ const Signin = () => {
     const handleSignIn = async (event: FormEvent) => {
         event.preventDefault();
 
-        const responsePromise = fetch(serveur + '/auth/signin', {
+        const responsePromise = fetch('http://82.66.255.189:3002/auth/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -39,7 +38,7 @@ const Signin = () => {
             if (response.status === 200) {
                 response.json().then((data: { jwt: string }) => {
                     localStorage.setItem('jwtToken', data.jwt);
-                    router.navigate("/home");
+                    window.location.href = "/patient";
                 });
             } else {
                 alert("Invalid credentials");

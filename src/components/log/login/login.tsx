@@ -1,5 +1,4 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-import { serveur, router } from "../../../main";
 
 const Login = () => {
 
@@ -20,7 +19,7 @@ const Login = () => {
         event.preventDefault();
 
 
-        const responsePromise = fetch(serveur + '/auth/login', {
+        const responsePromise = fetch('http://82.66.255.189:3002/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -32,7 +31,7 @@ const Login = () => {
             if (response.status === 200) {
                 response.json().then((data: { jwt: string }) => {
                     localStorage.setItem('jwtToken', data.jwt);
-                    router.navigate("/home");
+                    window.location.href = "/patient";
                 });
             } else {
                 setError(true);

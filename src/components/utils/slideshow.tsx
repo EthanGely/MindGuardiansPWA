@@ -2,20 +2,9 @@
 import React, { useState } from 'react';
 import './slideshow.scss';
 
-
-interface Slide {
-    img: string;
-    title: string;
-    description: string;
-    buttonLabel: string;
-}
-
-interface ChildComponentProps {
-    slides: Slide[];
-}
-
-
-const SlideShow: React.FC<ChildComponentProps> = ({ slides }) => {
+// Attention, quand on passe un array de slides à cette fonction, on a un objet qui contient un array de slides, d'où
+// l'écriture slides.slides.map() plus bas.
+function SlideShow(slides: any) {
 
     const [startX, setStartX] = useState<number>(0);
     const [currentX, setCurrentX] = useState<number>(0);
@@ -33,14 +22,14 @@ const SlideShow: React.FC<ChildComponentProps> = ({ slides }) => {
 
     function clickLast() {
         localStorage.setItem('notFirstTime', 'true');
-        window.location.href = "/login";
+        window.location.href = "/connexion";
     }
 
     return (
         <>
             <div className="slide-show">
                 <div className="slides-container">
-                    {slides.map((slide, index) => (
+                    {slides.slides.map((slide: any, index: number) => (
                         <div
                             key={index}
                             className={index === currentSlide ? 'slide active' : 'slide'}
@@ -53,14 +42,14 @@ const SlideShow: React.FC<ChildComponentProps> = ({ slides }) => {
                                 <div className="visuel"><img src={slide.img} alt={slide.title} /></div>
                                 <h2>{slide.title}</h2>
                                 <p>{slide.description}</p>
-                                {index === slides.length - 1 ? <button onClick={() => {clickLast()}} className="button">{slide.buttonLabel}</button> :
+                                {index === slides.slides.length - 1 ? <button onClick={() => {clickLast()}} className="button">{slide.buttonLabel}</button> :
                                     <button onClick={() => nextSlide()}>{slide.buttonLabel}</button>}
                             </div>
                         </div>
                     ))}
                 </div>
                 <div className="dots">
-                    {slides.map((_, index) => (
+                    {slides.slides.map((_: any, index: number) => (
                         <span
                             key={index}
                             className={index === currentSlide ? 'dot active' : 'dot'}

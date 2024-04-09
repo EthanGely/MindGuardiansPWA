@@ -1,36 +1,17 @@
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Log from './components/log/log';
-import './index.css'
-import Home from './components/home/home';
+import Home from './home';
 import Presentation from './components/fonctionnalites/fonctionnalites';
+import Connexion from './components/log/log';
+import Famille from './components/famille/Famille';
+import Medical from './components/medical/Medical';
+import Patient from './components/patient/Patient';
 import ErrorPage from "./components/error";
 import './App.css'
+import './index.css'
+/*
+const serveur = "http://82.66.255.189:3002";
 
-export const serveur = "http://82.66.255.189:3002";
-
-export const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Home />,
-        errorElement: <ErrorPage />
-    },
-    {
-        path: "/presentation",
-        element: <Presentation />,
-        errorElement: <ErrorPage />
-    },
-    {
-        path: "/log",
-        element: <Log />,
-        errorElement: <ErrorPage />
-    },
-    {
-        path: "/home",
-        element: <Home />,
-        errorElement: <ErrorPage />
-    },
-]);
 
 async function checkToken() {
     const token = localStorage.getItem('jwtToken');
@@ -43,15 +24,56 @@ async function checkToken() {
             }
         });
         if (response.status === 200) {
+            response.json().then((data: { jwt: string, user: any }) => {
+                localStorage.setItem('jwtToken', data.jwt);
+                setUser({ user: data.user });
+            });
             return true;
-        } else {
-            return false;
         }
-    } else {
-        return false;
     }
+    return false;
 }
+*/
 
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Home />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        // Page de connexion / inscription
+        path: "/connexion",
+        element: <Connexion />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        // Page de présentation de l'application
+        path: "/presentation",
+        element: <Presentation />,
+        //errorElement: <ErrorPage />,
+    },
+    {
+        // Page d'accueil de la famille
+        path: "/famille",
+        element: <Famille />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        // Page d'accueil du personnel médical
+        path: "/medical",
+        element: <Medical />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        // Page d'accueil du patient
+        path: "/patient",
+        element: <Patient />,
+        errorElement: <ErrorPage />,
+    }
+]);
+/*
 if (! await checkToken()) {
     if (localStorage.getItem('notFirstTime')) {
         router.navigate("/log");
@@ -59,6 +81,8 @@ if (! await checkToken()) {
         router.navigate("/presentation");
     }
 }
+*/
+
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <RouterProvider router={router} />

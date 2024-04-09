@@ -1,11 +1,12 @@
-import { router } from '../../main';
+//import { router } from '../../main';
 
-const Home = () => {
+function Home (user: any, handleNavigate: Function) {
+
     return (
         <div>
-            <h1>Welcome to the Homepage !</h1>
+            <h1>Welcome to the Homepage, {user.USER_FIRSTNAME} !</h1>
             <p>This is a simple homepage component.</p>
-            <button onClick={() => {localStorage.removeItem('jwtToken'); router.navigate("/log");}}>Disconnect</button>
+            <button onClick={() => {localStorage.removeItem('jwtToken'); handleNavigate("/log");}}>Disconnect</button>
         </div>
     );
 }
