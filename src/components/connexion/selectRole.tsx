@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 
-const Login = () => {
+const SelectRole = () => {
 
     const [usermail, setUserMail] = useState('');
     const [password, setPassword] = useState('');
@@ -65,4 +65,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default SelectRole;

@@ -3,9 +3,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from './home';
 import Presentation from './components/fonctionnalites/fonctionnalites';
 import Connexion from './components/log/log';
-import Famille from './components/famille/Famille';
-import Medical from './components/medical/Medical';
-import Patient from './components/patient/Patient';
+import Famille from './components/roles/famille/Famille';
+import Medical from './components/roles/medical/Medical';
+import Patient from './components/roles/patient/Patient';
 import ErrorPage from "./components/error";
 import './App.css'
 import './index.css'
