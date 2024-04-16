@@ -1,65 +1,23 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+const SelectRole = ({roles, setRole, selectedRole}: { roles: any, setRole: any, selectedRole: number }) => {
 
-const SelectRole = () => {
-
-    const [usermail, setUserMail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(false);
-
-
-    const handleUserMailChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setUserMail(event.target.value);
-    };
-
-    const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value);
-    };
-
-    const handleLogIn = async (event: FormEvent) => {
-        event.preventDefault();
-
-
-        const responsePromise = fetch('https://ethan-server.com:8443/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ usermail, password })
-        });
-
-        responsePromise.then((response: Response) => {
-            if (response.status === 200) {
-                response.json().then((data: { jwt: string, location: string }) => {
-                    localStorage.setItem('jwtToken', data.jwt);
-                    window.location.href = data.location;
-                });
-            } else {
-                setError(true);
-            }
-            (error: any) => {
-                console.error("Error:", error);
-            }
-        });
-    };
+    function handleRoleChange(roleID: number) {
+        setRole(roleID);
+    }
 
     return (
         <>
-            <h2>Connectez-vous</h2>
-            <div className='log-container'>
-                {error && <p className='error'>Erreur de connexion.<br />L'adresse email ou le mot de passe sont incorrect.</p>}
-                <form className='log-form'>
-                    <div className="form-group">
-                        <label>Adresse Email:</label>
-                        <input className={error ? "error" : ""} type="email" value={usermail} name='usermail' onChange={handleUserMailChange} placeholder='Entrez votre adresse email' />
-                    </div>
-                    <div className="form-group">
-                        <label>Mot de passe :</label>
-                        <input className={error ? "error" : ""} type="password" value={password} name='password' onChange={handlePasswordChange} placeholder='Entrez votre mot de passe' />
-                    </div>
-                    <input type="submit" onClick={handleLogIn} className='submit' value="Se connecter" />
-
-                    <a href="/log">Mot de passe oublié ? (TODO)</a>
-                </form>
+            <h2>Qui êtes-vous ?</h2>
+            <div className='list-3'>
+                {roles.map((role: { ROLE_ID: number, ROLE_LIBELLE: string, ROLE_IMAGE: String }, index: number) => (
+                        <div key={index} className={selectedRole === role.ROLE_ID ? 'item selected' : 'item'}>
+                            <div className="visuel">
+                                <img src={role.ROLE_LIBELLE.toString()} alt={role.ROLE_LIBELLE} />
+                            </div>
+                            <div className="itemInfo">
+                                <h3><button onClick={() => {handleRoleChange(role.ROLE_ID)}}>{role.ROLE_LIBELLE}</button></h3>
+                            </div>
+                        </div>
+                ))}
             </div>
         </>
     );

@@ -2,12 +2,12 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from './home';
 import Presentation from './components/fonctionnalites/fonctionnalites';
-import Connexion from './components/log/log';
+import Connexion from './components/connexion/signin';
 import Famille from './components/roles/famille/Famille';
 import Medical from './components/roles/medical/Medical';
 import Patient from './components/roles/patient/Patient';
 import ErrorPage from "./components/error";
-import './App.css'
+import './App.scss'
 import './index.css'
 /*
 const serveur = "https://ethan-server.com:8443";
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
         // Page de connexion / inscription
         path: "/connexion",
         element: <Connexion />,
-        errorElement: <ErrorPage />,
+        //errorElement: <ErrorPage />,
     },
     {
         // Page de présentation de l'application

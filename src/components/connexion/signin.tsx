@@ -1,31 +1,75 @@
-import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
+import SelectRole from './selectRole';
+import Forms, { FormsProps } from '../utils/forms';
 
 const Signin = () => {
 
     const [userFirstName, setUserFirstName] = useState('');
     const [userLastName, setUserLastName] = useState('');
+    const [userNaissance, setUserNaissance] = useState('');
+    const [userFontSize, setUserFontSize] = useState('');
     const [usermail, setUserMail] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordConfirm, setPasswordConfirm] = useState('');
+    const [profession, setProfession] = useState('');
+    const [link, setLink] = useState('');
     const [role, setRole] = useState(-1);
+    const [roles, setRoles] = useState<{ ROLE_ID: number, ROLE_NAME: string, ROLE_LIBELLE: string }[]>([]);
+    const [formData, setFormData] = useState<FormsProps>({ fieldSets: [] });
 
-    const handleUserFirstNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleUserFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUserFirstName(event.target.value);
     };
 
-    const handleUserLastNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleUserLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUserLastName(event.target.value);
     };
 
-    const handleUserMailChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleUserNaissanceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(event.target.value.length, userNaissance.length);
+        if (event.target.value.length > userNaissance.length) {
+            if (event.target.value.length === 2 && !event.target.value.includes('/')) {
+                event.target.value += '/';
+            }
+
+            if (event.target.value.length === 5 && !event.target.value.includes('/\d{2}//')) {
+                event.target.value += '/';
+            }
+        }
+
+        event.target.value = event.target.value.replace(/(\d{2})(\d{2})(\d{4})/, "$1/$2/$3")
+        setUserNaissance(event.target.value);
+        //setUserNaissance(event.target.value);
+    };
+
+    const handleUserFontSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setUserFontSize(event.target.value);
+    };
+
+    const handleProfessionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setProfession(event.target.value);
+    };
+
+    const handleLinkChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setLink(event.target.value);
+    };
+
+    const handleUserMailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUserMail(event.target.value);
     };
 
-    const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
+        validateField(event.target, checkPasswordRequirements(event.target.value));
     };
 
-    const handleRoleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-        setRole(Number(event.target.value));
+    const handleConfirmPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPasswordConfirm(event.target.value);
+        validateField(event.target, checkPassword(event.target.value));
+    };
+
+    const handleRoleChange = (roleId: number) => {
+        setRole(roleId);
     };
 
     const handleSignIn = async (event: FormEvent) => {
@@ -54,56 +98,244 @@ const Signin = () => {
         });
     };
 
+    function checkPassword(passConfirm: string) {
+        console.log(password, passConfirm);
+        return password === passConfirm;
+    }
+
+    function checkPasswordRequirements(pass: string) {
+        const regexpCheck = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+        return regexpCheck.test(pass);
+    }
+
+    function validateField(target: HTMLElement, isValid: boolean) {
+        if (isValid) {
+            target.classList.add('valid');
+            target.classList.remove('error');
+        } else {
+            target.classList.add('error');
+            target.classList.remove('valid');
+        }
+    }
+
     useEffect(() => {
         const responsePromise = fetch('https://ethan-server.com:8443/role/getAll');
 
         responsePromise.then((response: Response) => {
-            response.json().then((data: { ROLE_ID: number, ROLE_LIBELLE: string }[]) => {
-                const select = document.getElementById('role') as HTMLSelectElement;
-                data.forEach((role) => {
-                    const option = document.createElement('option');
-                    option.value = role.ROLE_ID.toString();
-                    option.textContent = role.ROLE_LIBELLE;
-                    select.appendChild(option);
-                });
+            response.json().then((data: { ROLE_ID: number, ROLE_NAME: string, ROLE_LIBELLE: string }[]) => {
+                setRoles(data.map((role) => role));
             });
         });
     }, []);
 
+    useEffect(() => {
+        switch (role) {
+            case 1:
+                //Patient
+                setFormData({
+                    fieldSets: [
+                        {
+                            fields: [
+                                {
+                                    name: 'userFirstName',
+                                    libelle: 'Prénom',
+                                    type: 'text',
+                                    placeholder: 'Entrez votre rénom',
+                                    handlerFunction: handleUserFirstNameChange,
+                                },
+                                {
+                                    name: 'userLastName',
+                                    libelle: 'Nom',
+                                    type: 'text',
+                                    placeholder: 'Entrez votre nom',
+                                    handlerFunction: handleUserLastNameChange,
+                                }
+                            ],
+                        },
+                        {
+                            fields: [
+                                {
+                                    name: 'userAge',
+                                    libelle: 'Date de naissance',
+                                    type: 'text',
+                                    placeholder: 'JJ/MM/AAAA',
+                                    handlerFunction: handleUserNaissanceChange,
+                                    maxLength: 10
+                                },
+                                {
+                                    name: 'fontSize',
+                                    libelle: 'Taille du texte',
+                                    type: 'text',
+                                    placeholder: 'Taille du texte (TODO: dev les select)',
+                                    handlerFunction: handleUserFontSizeChange,
+                                }
+                            ],
+                        },
+                        {
+                            fields: [
+                                {
+                                    name: 'userMail',
+                                    libelle: 'Adresse mail',
+                                    type: 'mail',
+                                    placeholder: 'Adresse mail',
+                                    handlerFunction: handleUserMailChange,
+                                }
+                            ],
+                        },
+                        {
+                            fields: [
+                                {
+                                    name: 'password',
+                                    libelle: 'Mot de passe',
+                                    type: 'password',
+                                    placeholder: 'Mot de passe',
+                                    handlerFunction: handlePasswordChange,
+                                },
+                                {
+                                    name: 'passwordConfirm',
+                                    libelle: 'Confirmation du mot de passe',
+                                    type: 'password',
+                                    placeholder: 'Mot de passe',
+                                    handlerFunction: handleConfirmPasswordChange,
+                                }
+                            ]
+                        }
+                    ]
+                });
+                break;
+            case 2:
+                //Personnel médical
+                setFormData({
+                    fieldSets: [
+                        {
+                            fields: [
+                                {
+                                    name: 'userFirstName',
+                                    libelle: 'Prénom',
+                                    type: 'text',
+                                    placeholder: 'Entrez votre rénom',
+                                    handlerFunction: handleUserFirstNameChange,
+                                },
+                                {
+                                    name: 'userLastName',
+                                    libelle: 'Nom',
+                                    type: 'text',
+                                    placeholder: 'Entrez votre nom',
+                                    handlerFunction: handleUserLastNameChange,
+                                }
+                            ],
+                        },
+                        {
+                            fields: [
+                                {
+                                    name: 'profession',
+                                    libelle: 'Profession',
+                                    type: 'text',
+                                    placeholder: 'Profession',
+                                    handlerFunction: handleProfessionChange,
+                                },
+                                {
+                                    name: 'userMail',
+                                    libelle: 'Adresse mail',
+                                    type: 'mail',
+                                    placeholder: 'Adresse mail',
+                                    handlerFunction: handleUserMailChange,
+                                }
+                            ],
+                        },
+                        {
+                            fields: [
+                                {
+                                    name: 'password',
+                                    libelle: 'Mot de passe',
+                                    type: 'password',
+                                    placeholder: 'Mot de passe',
+                                    handlerFunction: handlePasswordChange,
+                                },
+                                {
+                                    name: 'passwordConfirm',
+                                    libelle: 'Confirmation du mot de passe',
+                                    type: 'password',
+                                    placeholder: 'Mot de passe',
+                                    handlerFunction: handleConfirmPasswordChange,
+                                }
+                            ]
+                        }
+                    ]
+                });
+                break;
+            case 3:
+                // Famille
+                setFormData({
+                    fieldSets: [
+                        {
+                            fields: [
+                                {
+                                    name: 'userFirstName',
+                                    libelle: 'Prénom',
+                                    type: 'text',
+                                    placeholder: 'Entrez votre rénom',
+                                    handlerFunction: handleUserFirstNameChange,
+                                },
+                                {
+                                    name: 'userLastName',
+                                    libelle: 'Nom',
+                                    type: 'text',
+                                    placeholder: 'Entrez votre nom',
+                                    handlerFunction: handleUserLastNameChange,
+                                }
+                            ],
+                        },
+                        {
+                            fields: [
+                                {
+                                    name: 'userLink',
+                                    libelle: 'Lien avec le patient',
+                                    type: 'text',
+                                    placeholder: 'Lien avec le patient',
+                                    handlerFunction: handleLinkChange
+                                },
+                                {
+                                    name: 'userMail',
+                                    libelle: 'Adresse mail',
+                                    type: 'mail',
+                                    placeholder: 'Adresse mail',
+                                    handlerFunction: handleUserMailChange,
+                                }
+                            ],
+                        },
+                        {
+                            fields: [
+                                {
+                                    name: 'password',
+                                    libelle: 'Mot de passe',
+                                    type: 'password',
+                                    placeholder: 'Mot de passe',
+                                    handlerFunction: handlePasswordChange,
+                                },
+                                {
+                                    name: 'passwordConfirm',
+                                    libelle: 'Confirmation du mot de passe',
+                                    type: 'password',
+                                    placeholder: 'Mot de passe',
+                                    handlerFunction: handleConfirmPasswordChange,
+                                }
+                            ]
+                        }
+                    ]
+                });
+                break;
+        }
+    }, [role, userNaissance, password, passwordConfirm, profession, usermail, userFirstName, userLastName, userFontSize]);
+
     return (
         <>
-            <h2>Créez votre compte</h2>
-            <div className='log-container'>
-                <form className='log-form'>
-                    <div className="form-group">
-                        <label>Prénom :</label>
-                        <input type="text" value={userFirstName} name='userFirstName' onChange={handleUserFirstNameChange} placeholder='Entrez votre prénom' />
-                    </div>
-                    <div className="form-group">
-                        <label>Nom :</label>
-                        <input type="text" value={userLastName} name='userLastName' onChange={handleUserLastNameChange} placeholder='Entrez votre nom de famille' />
-                    </div>
-                    <div className="form-group">
-                        <label>Adresse Email :</label>
-                        <input type="email" value={usermail} name='usermail' onChange={handleUserMailChange} placeholder='Entrez votre adresse email' />
-                    </div>
-                    <div className="form-group">
-                        <label>Mot de passe :</label>
-                        <input type="password" value={password} name='password' onChange={handlePasswordChange} placeholder='Entrez votre mot de passe' />
-                        <p>Votre mot de passe doit contenir au moins 8 caractères, dont au moins :</p>
-                        <ul>
-                            <li>une lettre majuscule</li>
-                            <li>un chiffre</li>
-                            <li>un caractère spécial (&, !, @, ...)</li>
-                        </ul>
-                    </div>
-                    <div className="form-group">
-                        <label>Role</label>
-                        <select name="role" id="role" onChange={handleRoleChange}></select>
-                    </div>
-                    <input type="submit" onClick={handleSignIn} className='submit' value="S'inscrire" />
-                </form>
-            </div>
+            <SelectRole roles={roles} setRole={setRole} selectedRole={role} />
+            {role !== -1 && roles.some(r => r.ROLE_ID === role) && formData.fieldSets.length !== 0 ?
+                <>
+                    <h2>{roles.find(r => r.ROLE_ID === role)?.ROLE_LIBELLE}</h2>
+                    <Forms fieldSets={formData.fieldSets} />
+                </> : ''}
         </>
     );
 };
