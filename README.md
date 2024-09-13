@@ -2,7 +2,7 @@
 
 Ce Git contient l'application web PWA MindGuardians (partie Front).
 
-Un pipeline d'intégration s'occupe de publier les nouvellez version de l'application sur Vercel à chaque Push sur ce répo.
+Un pipeline d'intégration s'occupe de publier les nouvelles version de l'application sur Vercel à chaque Push sur ce répo.
 
 ## Choix techniques
 - PWA
