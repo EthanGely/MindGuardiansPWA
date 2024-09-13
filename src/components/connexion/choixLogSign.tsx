@@ -1,22 +1,52 @@
-// Why the fuck do you want me to write that
-// When I could write (role: string) to say that ROLE IS A FUCKING STRING YOU MOTHER FUCKER
-// GOT TO THE DEPTHS OF HELL AND SUCK THE FLAMING BALLS OF SATAN TYPESCRIPT YOU MOTHERFUCKING LIAR
-// EVEN COPILOT CANNOT PROPOSE ANYTHING TO WRITE TO YOUR USELESSNESS YOU FUCKING TWAT
-// I kinda like the word "twat".
-// It's like the sound of a frog being SQUASHED BY A FUCKING 33 TONS TRUCK COMING AT MACH JESUS IN A SCHOOL ZONE !
-// I'll drive that bus, THANK YOU AND GOOD FUCKING NIGHT !
-// PS : TS is good, only when you are NOT using it
-// No, don't try it please, I already lost my mind to it, and I do not want to see anyone in the same fucking states as me.
-// PLEASE NO
-// STOOOOOOOP
-// NOOOOOOOOOOOOOOO ...
-// Rest in peace old friend
-// YOU SEE WHAT YOU'VE DONE TYPESCRIPT ? ANOTHER DEAD BODY ! DIE DIE DIE DIE DIE DIE DIE DIE DIE DIE DIE DIE DIE
-function choixLogSign(role: { role: string; }) {
-    return (
-        <>
-        <h1>{role.role}</h1>
-        </>
-    );
+import { useState } from "react";
+import Connexion from "./login";
+import Inscription from "./signin";
+import ConnexionLogo from "../../assets/connexion.svg";
+import InscriptionLogo from "../../assets/inscription.svg";
+import { getDataFromRoute } from "../../main";
+
+function choixLogSign() {
+
+    const [isLogIn, setIsLogIn] = useState<Number>(-1);
+
+    getDataFromRoute('/user/getCurrent').then(data => {
+        if (data) {
+            window.location.href = "/patient";
+        }
+    });
+
+    if (isLogIn === 0) {
+        return (<Inscription/>)
+    } else if (isLogIn === 1) {
+        return (<Connexion/>)
+    } else {
+        return (
+            <>
+                <div className="flex flex--row flex--spaceEvenly list-2">
+                    <div className="card item item--small">
+                        <div className="card__visuel">
+                            <img src={ConnexionLogo} alt="Connexion" />
+                        </div>
+                        <div className="card__item-info">
+                            <h3>Connexion</h3>
+                            <p>Connectez-vous à votre compte</p>
+                            <a className="button" href="" onClick={(e) => { e.preventDefault(); setIsLogIn(1) }}>Se connecter</a>
+                        </div>
+                    </div>
+                    <div className="card item item--small">
+                        <div className="card__visuel">
+                            <img src={InscriptionLogo} alt="Inscription" />
+                        </div>
+                        <div className="card__item-info">
+                            <h3>Inscription</h3>
+                            <p>Créez votre nouveau compte</p>
+                            <a className="button" href="" onClick={(e) => { e.preventDefault(); setIsLogIn(0) }}>S'inscrire</a>
+                        </div>
+                    </div>
+                </div>
+            </>
+        );
+    }
+
 };
 export default choixLogSign;

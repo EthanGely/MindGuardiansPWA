@@ -1,13 +1,16 @@
 import { useEffect } from "react";
+// @ts-ignore
 import Patient from "./patient/Patient";
+// @ts-ignore
 import Medical from "./medical/Medical";
+// @ts-ignore
 import Famille from "./famille/Famille";
 
 
 function Role() {
     useEffect(() => {
         // Gets the user details linked to the token
-        const responsePromise = fetch('https://ethan-server.com:8443/user/get', {
+        const responsePromise = fetch('https://ethan-server.com:8443/user/getCurrent', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

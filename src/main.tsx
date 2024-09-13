@@ -2,38 +2,58 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from './home';
 import Presentation from './components/fonctionnalites/fonctionnalites';
-import Connexion from './components/connexion/signin';
+import Connexion from './components/connexion/choixLogSign';
 import Famille from './components/roles/famille/Famille';
 import Medical from './components/roles/medical/Medical';
 import Patient from './components/roles/patient/Patient';
 import ErrorPage from "./components/error";
 import './App.scss'
 import './index.css'
-/*
+
 const serveur = "https://ethan-server.com:8443";
 
-
-async function checkToken() {
+/**
+ * 
+ * @param route The route to send the token to and get data from (without the server address)
+ * @returns data from the route
+ */
+export async function getDataFromRoute(route: string, body?: any) {
     const token = localStorage.getItem('jwtToken');
-    if (token) {
-        const response = await fetch(serveur + '/auth/checkToken', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': 'Bearer ' + token
-            }
-        });
-        if (response.status === 200) {
-            response.json().then((data: { jwt: string, user: any }) => {
-                localStorage.setItem('jwtToken', data.jwt);
-                setUser({ user: data.user });
+    if (token && token != undefined) {
+        try {
+            const response = await fetch(serveur + route, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': 'Bearer: ' + token
+                },
+                body: JSON.stringify(body ? body : {})
             });
-            return true;
+
+            if (response.ok) {
+                console.log('Response status is 200');
+                const data = await response.json();
+                if (data.jwt && data.jwt != undefined) {
+                    console.log('Data from API :', data);
+                    localStorage.setItem('jwtToken', data.jwt);
+                    return data;
+                } else {
+                    console.error('No jwt in data:', data);
+                    return false;
+                }
+            } else {
+                console.error('Response status is not 200');
+                throw new Error('Response status is not 200');
+            }
+        } catch (error) {
+            console.error('Error in getDataWithToken:', error);
+            return false;
         }
+    } else {
+        console.error('No token in localStorage');
+        return false;
     }
-    return false;
 }
-*/
 
 
 const router = createBrowserRouter([
@@ -52,7 +72,7 @@ const router = createBrowserRouter([
         // Page de présentation de l'application
         path: "/presentation",
         element: <Presentation />,
-        //errorElement: <ErrorPage />,
+        errorElement: <ErrorPage />,
     },
     {
         // Page d'accueil de la famille

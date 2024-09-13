@@ -1,3 +1,4 @@
+// @ts-ignore
 import { useState, FormEvent, useEffect } from 'react';
 import SelectRole from './selectRole';
 import Forms, { FormsProps } from '../utils/forms';
@@ -26,7 +27,6 @@ const Signin = () => {
     };
 
     const handleUserNaissanceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.value.length, userNaissance.length);
         if (event.target.value.length > userNaissance.length) {
             if (event.target.value.length === 2 && !event.target.value.includes('/')) {
                 event.target.value += '/';
@@ -39,7 +39,6 @@ const Signin = () => {
 
         event.target.value = event.target.value.replace(/(\d{2})(\d{2})(\d{4})/, "$1/$2/$3")
         setUserNaissance(event.target.value);
-        //setUserNaissance(event.target.value);
     };
 
     const handleUserFontSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,19 +67,19 @@ const Signin = () => {
         validateField(event.target, checkPassword(event.target.value));
     };
 
+    // @ts-ignore
     const handleRoleChange = (roleId: number) => {
         setRole(roleId);
     };
 
-    const handleSignIn = async (event: FormEvent) => {
-        event.preventDefault();
+    const handleSignIn = async () => {
 
         const responsePromise = fetch('https://ethan-server.com:8443/auth/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ userFirstName, userLastName, usermail, password, userRoleId: role })
+            body: JSON.stringify({ userFirstName, userLastName, userAge: userNaissance, fontSize: userFontSize, usermail, password, passwordConfirm, userRoleId: role })
         });
 
         responsePromise.then((response: Response) => {
@@ -90,7 +89,7 @@ const Signin = () => {
                     window.location.href = data.location;
                 });
             } else {
-                alert("Invalid credentials");
+                alert("C'est cassé");
             }
             (error: any) => {
                 console.error("Error:", error);
@@ -326,7 +325,7 @@ const Signin = () => {
                 });
                 break;
         }
-    }, [role, userNaissance, password, passwordConfirm, profession, usermail, userFirstName, userLastName, userFontSize]);
+    }, [role, userNaissance, password, passwordConfirm, profession, usermail, userFirstName, userLastName, userFontSize, link]);
 
     return (
         <>
@@ -334,7 +333,7 @@ const Signin = () => {
             {role !== -1 && roles.some(r => r.ROLE_ID === role) && formData.fieldSets.length !== 0 ?
                 <>
                     <h2>{roles.find(r => r.ROLE_ID === role)?.ROLE_LIBELLE}</h2>
-                    <Forms fieldSets={formData.fieldSets} />
+                    <Forms formData={formData} action={handleSignIn} />
                 </> : ''}
         </>
     );

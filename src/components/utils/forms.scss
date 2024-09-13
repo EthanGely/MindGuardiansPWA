@@ -1,0 +1,33 @@
+.formComponent {
+    fieldset {
+        border: none;
+        padding: 0 2rem;
+        margin-bottom: 1rem;
+
+        .formGroup {
+            text-align: left;
+            width: 100%;
+            padding: 1rem 2rem;
+
+            input,
+            textarea {
+                width: 100%;
+                padding: 1rem;
+                margin-bottom: 1rem;
+                border: 2px solid #ccc;
+                border-radius: 5px;
+                font-size: 18px;
+                transition: all 0.3s;
+                outline: none;
+
+                &.error {
+                    background-color: rgb(86, 0, 0)
+                }
+
+                &.valid {
+                    background-color: rgb(0, 86, 0);
+                }
+            }
+        }
+    }
+}
