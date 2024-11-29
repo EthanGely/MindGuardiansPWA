@@ -8,6 +8,8 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
+      srcDir: 'src',
+      filename: 'push-service-worker.js',
       manifest: {
         "theme_color": "#004C45",
         "background_color": "#F98F45",
