@@ -1,9 +1,8 @@
-import SlideShow from "../utils/slideshow.tsx";
+import SlideShow from "../../utils/slideshow";
 import dateCalendar from "../../assets/date.svg";
 import logoMg from "../../assets/logo-mind-guardians.png";
 import controller from "../../assets/controller.svg";
 import simulation from "../../assets/simulation.svg";
-import Footer from "../footer.tsx";
 
 function Fonctionnalites() {
   let slides = [
@@ -29,15 +28,14 @@ function Fonctionnalites() {
       img: controller,
       title: "Jeux",
       description: "Divertissez-vous avec une sélection de jeux divertissants adaptés à vos capacités cognitives et personnalisés.",
-      buttonLabel: "S'inscrire",
+      buttonLabel: "Accedez à l'application",
     },
   ];
 
   return (
     <>
-      <div className="u-mb-5"></div>
+      <div className="u-mb-2"></div>
       <SlideShow slides={slides} />
-      <Footer />
     </>
   );
 }

@@ -15,7 +15,7 @@ function SlideShow(slides: any) {
 
   function clickLast() {
     localStorage.setItem("notFirstTime", "true");
-    window.location.href = "/connexion";
+    window.location.href = "/connexionInscription";
   }
 
   return (

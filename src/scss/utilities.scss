@@ -1,0 +1,38 @@
+/*
+ * Génération des classes utilitaires d'espacements
+ * Tous les niveaux de 0 à 14 sont généré pour tous les types de marges interne et externe (margin & padding - top/right/bottom/left)
+ * Exemples de classes générés:
+ * .u-m-0 { margin: 0; }
+ * .u-mb-4 { margin-bottom: $spacer-4; // 16px }
+ * .u-ml-8 { margin-left: $spacer-8; // 64px }
+ * .u-pr-8 { padding-right: $spacer-8; // 64px }
+ * .u-pb-14 { padding-bottom: $spacer-14; // 144px }
+ */
+@each $spacer-shortname, $spacer-longname in $spacer-shortnames {
+  @for $i from 1 through length($spacers) {
+    .u-#{$spacer-shortname}-#{$i - 1} {
+      #{$spacer-longname}: nth($spacers, $i);
+    }
+  }
+}
+
+.u-wfc {
+  width: fit-content;
+}
+
+.u-align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.u-text-center {
+  text-align: center;
+}
+
+.u-c-p {
+  color: $color-primary;
+}
+
+.u-c-s {
+  color: $color-secondary;
+}

@@ -1,0 +1,11 @@
+// Scss stylesheets
+@import "./scss/variables.scss";
+@import "./scss/spacers.scss";
+@import "./scss/utilities.scss";
+//@import './scss/mixins';
+@import "./scss/reset";
+@import "./scss/base";
+@import "./scss/headings.scss";
+@import "./scss/layout";
+@import "./scss/components";
+@import "./scss/patient/patient.scss";

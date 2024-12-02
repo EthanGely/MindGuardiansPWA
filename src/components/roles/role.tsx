@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 // @ts-ignore
 import Patient from "./patient/Patient";
 // @ts-ignore
@@ -6,39 +6,41 @@ import Medical from "./medical/Medical";
 // @ts-ignore
 import Famille from "./famille/Famille";
 
-
 function Role() {
-    useEffect(() => {
-        // Gets the user details linked to the token
-        const responsePromise = fetch('https://ethan-server.com:8443/user/getCurrent', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
-            }
-        });
+  const [role, setRole] = useState("");
+  const [name, setName] = useState("");
 
-        responsePromise.then((response: Response) => {
-            if (response.status === 200) {
-                response.json().then((data: { userFirstName: string, userLastName: string, libelleRole: string }) => {
-                    const name = document.getElementById('name') as HTMLSelectElement;
-                    const role = document.getElementById('role') as HTMLSelectElement;
-                    role.innerText = data.libelleRole;
-                    name.innerText = data.userFirstName + " " + data.userLastName;
-                    name.classList.add('loaded');
-                    role.classList.add('loaded');
-                });
-            } else {
-                window.location.href = "/";
-            }
+  useEffect(() => {
+    // Gets the user details linked to the token
+    const responsePromise = fetch("https://ethan-server.com:8443/user/getCurrent", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwtToken"),
+      },
+    });
+
+    responsePromise.then((response: Response) => {
+      if (response.status === 200) {
+        response.json().then((data: { userFirstName: string; userLastName: string; libelleRole: string }) => {
+          setRole(data.libelleRole);
+          setName(data.userFirstName + " " + data.userLastName);
         });
-    }, []);
-    return (
-        <div>
-            <h1>Interface <span id="role"></span></h1>
-            <h2>Bonjour <span id="name"></span></h2>
-        </div>
-    );
+      } else {
+        window.location.href = "/";
+      }
+    });
+  }, []);
+  return (
+    <div>
+      <h1>
+        Interface <span id="role">{role}</span>
+      </h1>
+      <h2>
+        Bonjour <span id="name">{name}</span>
+      </h2>
+    </div>
+  );
 }
 
 export default Role;

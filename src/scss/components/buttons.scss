@@ -1,0 +1,75 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--btn-padding-vertical, $spacer-5) var(--btn-padding-horizontal, $spacer-6);
+  border: 2px solid var(--btn-border-color, $color-background);
+  border-radius: 12px;
+  background-color: var(--btn-background-color, $color-background);
+  color: var(--btn-text-color, $color-text);
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background-color: var(--btn-background-color-hover, $color-text);
+    border-color: var(--btn-border-color-hover, $color-text);
+    color: var(--btn-text-color-hover, $color-background);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+
+    &:hover,
+    &:focus {
+      background-color: var(--btn-background-color, $color-background);
+      border-color: var(--btn-border-color, $color-background);
+      color: var(--btn-text-color, $color-text);
+    }
+  }
+
+  &--primary {
+    --btn-border-color: #{$color-primary};
+    --btn-background-color: #{$color-primary};
+    --btn-text-color: #{$color-light};
+
+    --btn-border-color-hover: #{$color-primary-dark};
+    --btn-background-color-hover: #{$color-primary-dark};
+    --btn-text-color-hover: #{$color-light};
+
+    &-dark {
+      --btn-border-color: #{$color-primary-dark};
+      --btn-background-color: #{$color-primary-dark};
+      --btn-text-color: #{$color-light};
+
+      --btn-border-color-hover: #{$color-primary-darker};
+      --btn-background-color-hover: #{$color-primary-darker};
+      --btn-text-color-hover: #{$color-light};
+    }
+  }
+
+  &--secondary {
+    --btn-border-color: #{$color-secondary};
+    --btn-background-color: #{$color-secondary};
+    --btn-text-color: #{$color-light};
+
+    --btn-border-color-hover: #{$color-secondary-dark};
+    --btn-background-color-hover: #{$color-secondary-dark};
+    --btn-text-color-hover: #{$color-light};
+
+    &-dark {
+      --btn-border-color: #{$color-secondary-dark};
+      --btn-background-color: #{$color-secondary-dark};
+      --btn-text-color: #{$color-light};
+
+      --btn-border-color-hover: #{$color-secondary-darker};
+      --btn-background-color-hover: #{$color-secondary-darker};
+      --btn-text-color-hover: #{$color-light};
+    }
+  }
+
+  &--small {
+    --btn-padding-vertical: #{$spacer-3};
+    --btn-padding-horizontal: #{$spacer-4};
+  }
+}

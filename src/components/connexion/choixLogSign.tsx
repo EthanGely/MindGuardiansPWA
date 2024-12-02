@@ -1,52 +1,62 @@
 import { useState } from "react";
 import Connexion from "./login";
 import Inscription from "./signin";
-import ConnexionLogo from "../../assets/connexion.svg";
-import InscriptionLogo from "../../assets/inscription.svg";
-import { getDataFromRoute } from "../../main";
+import { getDataFromAPI } from "../../main";
+import LogoMindGaurdians from "../../assets/logo-mind-guardians.png";
+import Footer from "../footer";
 
 function choixLogSign() {
+  const [isLogIn, setIsLogIn] = useState<Number>(-1);
 
-    const [isLogIn, setIsLogIn] = useState<Number>(-1);
-
-    getDataFromRoute('/user/getCurrent').then(data => {
-        if (data) {
-            window.location.href = "/patient";
-        }
-    });
-
-    if (isLogIn === 0) {
-        return (<Inscription/>)
-    } else if (isLogIn === 1) {
-        return (<Connexion/>)
-    } else {
-        return (
-            <>
-                <div className="flex flex--row flex--spaceEvenly list-2">
-                    <div className="card item item--small">
-                        <div className="card__visuel">
-                            <img src={ConnexionLogo} alt="Connexion" />
-                        </div>
-                        <div className="card__item-info">
-                            <h3>Connexion</h3>
-                            <p>Connectez-vous à votre compte</p>
-                            <a className="button" href="" onClick={(e) => { e.preventDefault(); setIsLogIn(1) }}>Se connecter</a>
-                        </div>
-                    </div>
-                    <div className="card item item--small">
-                        <div className="card__visuel">
-                            <img src={InscriptionLogo} alt="Inscription" />
-                        </div>
-                        <div className="card__item-info">
-                            <h3>Inscription</h3>
-                            <p>Créez votre nouveau compte</p>
-                            <a className="button" href="" onClick={(e) => { e.preventDefault(); setIsLogIn(0) }}>S'inscrire</a>
-                        </div>
-                    </div>
-                </div>
-            </>
-        );
+  getDataFromAPI("/user/getCurrent").then((data) => {
+    if (data) {
+      window.location.href = "/patient";
     }
+  });
 
-};
+  if (isLogIn === 0) {
+    return <Inscription />;
+  } else if (isLogIn === 1) {
+    return <Connexion />;
+  } else {
+    return (
+      <>
+        <div className="logo u-align-center u-mb-8">
+          <img src={LogoMindGaurdians} alt="Logo Mind Guardians" />
+        </div>
+        <div className="flex flex--row flex--spaceEvenly list-2">
+          <div className="card card--shadow item item--small">
+            <div className="card__item-info">
+              <h3 className="u-text-center">Connexion</h3>
+              <p className="u-text-center">Connectez-vous à votre compte</p>
+              <button
+                className="button button--primary u-align-center"
+                onClick={() => {
+                  setIsLogIn(1);
+                }}
+              >
+                Se connecter
+              </button>
+            </div>
+          </div>
+          <div className="card card--shadow item item--small">
+            <div className="card__item-info">
+              <h3 className="u-text-center">Inscription</h3>
+              <p className="u-text-center">Créez votre nouveau compte</p>
+              <button
+                className="button button--primary u-align-center"
+                onClick={() => {
+                  setIsLogIn(0);
+                }}
+              >
+                S'inscrire
+              </button>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+}
 export default choixLogSign;
