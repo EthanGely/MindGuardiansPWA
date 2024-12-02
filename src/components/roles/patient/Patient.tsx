@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Chat from "../../utils/chat";
 import Agenda from "../../utils/agenda";
-import { getDataFromAPI } from "../../../main";
+//import { getDataFromAPI } from "../../../main";
 import Header from "./headerPatient";
 
 function Patient() {
   const [location, setLocation] = useState("/");
-  const [name, setName] = useState("");
+  //const [name, setName] = useState("");
 
   //post request to route "https://ethan-server.com:8443/user/getCurrent" with the jwt token in the header"
-  useEffect(() => {
+  /*useEffect(() => {
     getDataFromAPI("/user/getCurrent").then((data) => {
       if (data) {
         const name = document.getElementById("name") as HTMLSelectElement;
@@ -21,7 +21,7 @@ function Patient() {
         window.location.href = "/";
       }
     });
-  }, []);
+  }, []);*/
 
   if (location === "/chat") {
     return (
@@ -52,7 +52,7 @@ function Patient() {
         <div>
           <h1>Interface Patient</h1>
           <h2>
-            Bonjour <span id="name">{name}</span>
+            Bonjour <span id="name">TEMP</span>
           </h2>
           <button
             className="button button--primary u-align-center"
