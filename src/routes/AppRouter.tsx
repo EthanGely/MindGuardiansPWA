@@ -9,8 +9,8 @@ const AppRouter = () => (
   <Router>
     <Routes>
       <Route path="/*" element={<AuthRoutes />} />
-      <Route path="/patients/*" element={<PrivateRoute />}>
-        <Route path="/patients/*" element={<PatientRoutes />} />
+      <Route path="/patient/*" element={<PrivateRoute />}>
+        <Route path="/patient/*" element={<PatientRoutes />} />
       </Route>
       <Route path="/doctor/*" element={<PrivateRoute />}>
         <Route path="/doctor/*" element={<DoctorRoutes />} />

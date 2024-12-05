@@ -24,7 +24,7 @@ function Home() {
           <button
             className="button button--secondary u-wfc u-align-center"
             onClick={() => {
-              window.location.href = "/connexion";
+              window.location.href = "/connexionInscription";
             }}
           >
             Ou connectez-vous directement
