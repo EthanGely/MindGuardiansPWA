@@ -34,7 +34,7 @@ export const useApi = () => {
   return { callApi, error };
 };
 
-export const signUp = async (usermail: string, password: string) => {
+export const logIn = async (usermail: string, password: string) => {
   const { callApi } = useApi();
   const response = await callApi("/auth/login", { usermail, password });
 

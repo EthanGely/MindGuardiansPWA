@@ -50,4 +50,27 @@
     box-shadow: 0.5rem 0.5rem 1rem #{$color-primary-dark}38;
     border: none;
   }
+
+  &__list {
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+    flex-wrap: wrap;
+  
+    &.list-2 {
+      .card {
+        flex: 1 0 calc((100% / 2) - 3rem);
+  
+        &.card--small {
+          max-width: calc(75% / 2);
+        }
+      }
+    }
+  
+    &.list-3 {
+      & .card {
+        flex: 1 0 calc((100% / 3) - 3rem);
+      }
+    }
+  }
 }

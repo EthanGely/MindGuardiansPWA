@@ -5,7 +5,7 @@ import Header from "./Header";
 const Doctorlayout: React.FC = () => {
   return (
     <div className="layout">
-      <Header userType="Doctor" />
+      <Header userType="Doctor" title="Docteur" />
       <main className="main-content">
         <Outlet />
       </main>

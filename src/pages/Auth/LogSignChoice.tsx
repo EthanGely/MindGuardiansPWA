@@ -6,8 +6,8 @@ function choixLogSign() {
       <div className="logo u-align-center u-mb-8">
         <img src={LogoMindGaurdians} alt="Logo Mind Guardians" />
       </div>
-      <div className="flex flex--row flex--spaceEvenly list-2">
-        <div className="card card--shadow item item--small">
+      <div className="card__list list-2">
+        <div className="card card--shadow">
           <div className="card__item-info">
             <h3 className="u-text-center">Connexion</h3>
             <p className="u-text-center">Connectez-vous à votre compte</p>
@@ -21,7 +21,7 @@ function choixLogSign() {
             </button>
           </div>
         </div>
-        <div className="card card--shadow item item--small">
+        <div className="card card--shadow">
           <div className="card__item-info">
             <h3 className="u-text-center">Inscription</h3>
             <p className="u-text-center">Créez votre nouveau compte</p>

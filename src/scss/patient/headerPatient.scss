@@ -1,4 +1,7 @@
 .header {
+  margin-bottom: 30px;
+
+
   &--patient {
     position: relative;
     display: flex;
@@ -19,11 +22,20 @@
 
   &__logo {
     max-height: 50px;
+    display: flex;
+    gap: $spacer-6;
+    align-items: center;
 
     img {
       width: 100%;
       max-height: 100%;
       object-fit: contain;
+    }
+
+    h1 {
+      font-size: 40px;
+      font-weight: 400;
+      color: $color-light;
     }
   }
 

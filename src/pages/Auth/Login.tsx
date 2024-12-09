@@ -1,38 +1,33 @@
 import React, { useState } from "react";
-import { useApi } from "../../utils/apiCall";
-import { useAuth } from "../../context/AuthProvider";
-import LogoMindGaurdians from "../../assets/logo-mind-guardians.png";
+import { useAuth } from "../../context/NewAuthProvider";
 import { useNavigate } from "react-router-dom";
+import LogoMindGaurdians from "../../assets/logo-mind-guardians.png";
 
 const Login: React.FC = () => {
-  const { callApi, error } = useApi();
   const [usermail, setUserMail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
   const authContext = useAuth();
+  const navigate = useNavigate();
   if (!authContext) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
-  const { isAuthenticated, login } = authContext;
-  //const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const response = await callApi("/auth/login", { usermail, password });
-
-      if (response) {
-        localStorage.setItem("jwtToken", response.jwt);
-        login(response.jwt);
-        if (isAuthenticated) {
-          navigate(response.location ? response.location : "/dashboard");
-          return;
+    if (usermail !== "" && password !== "") {
+      const locPromise = authContext.loginAction(usermail, password);
+      locPromise.then((location) => {
+        if (location && typeof location === "string") {
+          navigate(location);
+          setError(false);
+          return
         }
+        setError(false);
       }
-      console.log("Login error");
-    } catch (err: any) {
-      console.error(err);
+      );
     }
+    setError(true)
   };
 
   return (
