@@ -15,7 +15,6 @@ import { ReactNode } from "react";
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState(localStorage.getItem("jwtToken") || "");
   const loginAction = async (usermail: string, password: string) => {
-    try {
       const response = await fetch(serveurUrl + "/auth/login", {
         method: "POST",
         headers: {
@@ -30,11 +29,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         return res.location;
       }
       return false;
-      throw new Error(res.message);
-    } catch (err) {
-      console.error(err);
-      return false;
-    }
   };
 
   const logOut = () => {
