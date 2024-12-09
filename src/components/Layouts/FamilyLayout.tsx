@@ -5,7 +5,7 @@ import Header from "./Header";
 const FamilyLayout: React.FC = () => {
   return (
     <div className="layout">
-      <Header userType="Family" />
+      <Header userType="Family" title="Famille" />
       <main className="main-content">
         <Outlet />
       </main>
