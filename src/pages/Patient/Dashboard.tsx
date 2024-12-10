@@ -55,28 +55,45 @@ function Dashboard() {
   }
   return (
     <>
-      <div className="main-body">
-        <div className="card__list list-3">
+      <div className="main-body u-h-100 flex-col u-g-3">
+        <div className="card__list list-3 u-h-85">
           {usedCards.map((card) => (
-            <div className="card card--shadow" key={card.title}>
-              <a className="card__title" href={"patient/" + card.link}>
-                {card.title}
-              </a>
+            <div className="card card--rounded card--shadow" key={card.title}>
+              <div className="card__item-info">
+                <h3 className="card__title">
+                  <a
+                    className="card__link card__link--cover"
+                    href={"patient/" + card.link}
+                  >
+                    {card.title}
+                  </a>
+                </h3>
+              </div>
               <div className="card__icon">
                 <img src={card.icon} alt={card.title} />
               </div>
             </div>
           ))}
         </div>
-        {page > 1 && (
-          <button onClick={() => setPage(page - 1)}>Précédent</button>
-        )}
-        <div>
-          Page {page} / {Math.ceil(cards.length / itemsPerPage)}
+        <div className="flex flex-center-aligncenter u-g-8 u-h-10">
+          <button
+            className="button button--primary"
+            onClick={() => setPage(page - 1)}
+            disabled={page == 1}
+          >
+            Précédent
+          </button>
+          <div>
+            Page {page} / {Math.ceil(cards.length / itemsPerPage)}
+          </div>
+            <button
+              className="button button--primary"
+              onClick={() => setPage(page + 1)}
+              disabled={page == Math.ceil(cards.length / itemsPerPage)}
+            >
+              Suivant
+            </button>
         </div>
-        {page < cards.length / itemsPerPage && (
-          <button onClick={() => setPage(page + 1)}>Suivant</button>
-        )}
       </div>
     </>
   );

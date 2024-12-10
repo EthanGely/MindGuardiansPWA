@@ -2,7 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: var(--btn-padding-vertical, $spacer-5) var(--btn-padding-horizontal, $spacer-6);
+  padding: var(--btn-padding-vertical, $spacer-5)
+    var(--btn-padding-horizontal, $spacer-6);
   border: 2px solid var(--btn-border-color, $color-background);
   border-radius: 12px;
   background-color: var(--btn-background-color, $color-background);
@@ -10,22 +11,20 @@
   transition: all 0.3s ease;
   cursor: pointer;
 
-  &:hover,
-  &:focus {
-    background-color: var(--btn-background-color-hover, $color-text);
-    border-color: var(--btn-border-color-hover, $color-text);
-    color: var(--btn-text-color-hover, $color-background);
+  &:not(:disabled) {
+    &:hover,
+    &:focus {
+      background-color: var(--btn-background-color-hover, $color-text);
+      border-color: var(--btn-border-color-hover, $color-text);
+      color: var(--btn-text-color-hover, $color-background);
+    }
   }
 
   &:disabled {
-    cursor: not-allowed;
-
-    &:hover,
-    &:focus {
-      background-color: var(--btn-background-color, $color-background);
-      border-color: var(--btn-border-color, $color-background);
-      color: var(--btn-text-color, $color-text);
-    }
+    cursor: default;
+    background-color: transparent;
+    border-color: transparent;
+    color: transparent;
   }
 
   &--primary {
@@ -33,8 +32,8 @@
     --btn-background-color: #{$color-primary};
     --btn-text-color: #{$color-light};
 
-    --btn-border-color-hover: #{$color-primary-dark};
-    --btn-background-color-hover: #{$color-primary-dark};
+    --btn-border-color-hover: #{$color-primary-light};
+    --btn-background-color-hover: #{$color-primary-light};
     --btn-text-color-hover: #{$color-light};
 
     &-dark {

@@ -16,6 +16,12 @@
   }
 }
 
+@for $i from 1 through 20 {
+  .u-h-#{$i * 5} {
+    height: #{$i * 5}#{'%'};
+  }
+}
+
 .u-wfc {
   width: fit-content;
 }

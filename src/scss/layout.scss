@@ -17,7 +17,17 @@
     justify-content: flex-start;
   }
 
+  &[class*='center'] {
+    justify-content: center;
+  }
+
   &[class*="gap"] {
     gap: 3rem;
   }
+
+  &[class*='aligncenter'] {
+    align-items: center;
+  }
+
+  
 }

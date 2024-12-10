@@ -1,76 +1,86 @@
 .card {
-  position: relative;
-  background-color: #fff;
-  border-radius: 2rem;
-  border: 0.2rem solid #000;
-
-  &__visuel {
-    position: relative;
-    overflow: hidden;
-    border-radius: 2rem 2rem 0 0;
-
-    img {
-      height: auto;
-      object-fit: cover;
-    }
-  }
-
-  &__item-info {
-    padding: 0.5rem 2rem 2rem 2rem;
-    text-align: left;
-
-    h3 {
-      margin-bottom: 1rem;
-    }
-
-    p {
-      margin-bottom: 1rem;
-    }
-
-    a {
-      display: block;
-      margin: 0 auto;
-      text-align: center;
-      padding: 1rem 2rem;
-      background-color: #000;
-      color: #fff;
-      border-radius: 2rem;
-      text-decoration: none;
-
-      &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-      }
-    }
-  }
-
-  &--shadow {
-    box-shadow: 0.5rem 0.5rem 1rem #{$color-primary-dark}38;
-    border: none;
-  }
-
-  &__list {
     display: flex;
-    justify-content: space-between;
-    gap: 3rem;
-    flex-wrap: wrap;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    height: calc(50% - 40px);
+    transition: all .3s;
+
+    &:hover,
+    &:focus {
+        box-shadow: -0.5rem 0.5rem 3rem #{$color-primary-dark}38;
+
+        img {
+            scale: 1.05;
+        }
+    }
+
+    &--rounded {
+        border-radius: 10px;
+    }
   
-    &.list-2 {
-      .card {
-        flex: 1 0 calc((100% / 2) - 3rem);
+    &--shadow {
+      box-shadow: 0.5rem 0.5rem 1rem #{$color-primary-dark}38;
+      border: none;
+    }
+
+    &__item-info {
+        background-color: $color-secondary-dark;
+        color: $color-light;
+    }
+
+    &__title {
+        color: $color-light;
+    }
+
+    &__link {
+        color: $color-light;
+        text-decoration: none;
+
+        &--cover::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            cursor: pointer;
+            z-index: 2;
+        }
+    }
+
+    &__icon {
+        padding: 30px;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: all .3s;
+        }
+    }
   
-        &.card--small {
-          max-width: calc(75% / 2);
+    &__list {
+      display: flex;
+      justify-content: space-between;
+      gap: 3rem;
+      flex-wrap: wrap;
+    
+      &.list-2 {
+        .card {
+          flex: 1 0 calc((100% / 2) - 3rem);
+    
+          &.card--small {
+            max-width: calc(75% / 2);
+          }
+        }
+      }
+    
+      &.list-3 {
+        & .card {
+          flex: 1 0 calc((100% / 3) - 3rem);
         }
       }
     }
-  
-    &.list-3 {
-      & .card {
-        flex: 1 0 calc((100% / 3) - 3rem);
-      }
-    }
   }
-}
+  

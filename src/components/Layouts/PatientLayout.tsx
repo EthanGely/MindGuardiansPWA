@@ -4,17 +4,18 @@ import Header from "./Header";
 
 const pageTitles: { [key: string]: string } = {
   "/patient": "Accueil",
-  "/patient/agenda": "My Agenda",
+  "/patient/agenda": "Agenda",
   "/patient/chat": "Chat with Doctor",
 };
 
 const PatientLayout: React.FC = () => {
   const location = useLocation();
   const title = pageTitles[location.pathname] || "Accueil";
+  const isHome = title === "Accueil";
 
   return (
     <div className="layout">
-      <Header userType="Patient" title={title} />
+      <Header userType="Patient" title={title} isHome={isHome} />
       <main className="main-content">
         <Outlet />
       </main>
