@@ -25,6 +25,8 @@ const messages = [
   'Mince, raté !',
 ];
 
+const [openedPopup, setOpenedPopup] = useState(false);
+
 function capitalize(str: string) {
   if (!str) return "";
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -62,6 +64,12 @@ function MonthView({ selectedDate, agendas }: MonthProps) {
     }
     return 0;
   });
+
+
+  const handleAgendaClick = () => {
+
+    setOpenedPopup(!openedPopup);
+  }
 
   console.log(agendas);
   return (
