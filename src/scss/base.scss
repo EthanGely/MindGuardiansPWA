@@ -2,7 +2,7 @@ html * {
   box-sizing: border-box;
 }
 html {
-  background-color: $color-background;
+  background-color: $color-page-background;
 }
 
 #root {
@@ -22,7 +22,7 @@ html {
   font-size: 20px;
   color-scheme: light dark;
   color: $color-text;
-  background-color: $color-background;
+  background-color: $color-page-background;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

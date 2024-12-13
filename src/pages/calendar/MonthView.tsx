@@ -6,7 +6,8 @@ interface MonthProps {
 }
 
 const messages = [
-  'Un agenda est prévu ce jour, mais le dev n\'est pas rapide... ;(',
+  'Un agenda est prévu ce jour, mais le dev n\'a pas encore eu le temps d\'y travailler... ;(',
+  'Pour accélérer le développement, offrez-moi une boisson énergisante (non, je n\'aime pas le café...) !',
   'Patience... Cliquer sur ce message ne fera pas apparaître l\'agenda plus vite...',
   'Un jour, un agenda apparaîtra... Mais pas aujourd\'hui !',
   'Heuuu...',
@@ -16,7 +17,7 @@ const messages = [
   'Toujours pas...',
   '... Toujours rien...',
   '... Toujours pas...',
-  '... Toujours rien...',
+  'Non, rien de rien, Non, je ne fait rien',
   'Attendez...',
   'Essayez encore une fois ?',
   'Je crois que ça vient',
@@ -32,7 +33,7 @@ function capitalize(str: string) {
 const today = new Date();
 
 function MonthView({ selectedDate, agendas }: MonthProps) {
-  const [iii, setIii] = useState(0);
+  const [messageIndex, setMessageIndex] = useState(0);
   //Get the number of days in the month
   const daysInMonth = new Date(
     selectedDate.getFullYear(),
@@ -104,7 +105,7 @@ function MonthView({ selectedDate, agendas }: MonthProps) {
                         key={j}
                         className={
                           "calendar__cell" +
-                          (isCurrentMonth && today.getDay() === i + (j - 1) / 7
+                          (isCurrentMonth && today.getDate() === day
                             ? " calendar__cell--today"
                             : "")
                         }
@@ -120,7 +121,7 @@ function MonthView({ selectedDate, agendas }: MonthProps) {
                           if ( (dateDebut <= currentDateEnd && dateFin >= currentDate) && daysAgendaNumber < 3) {
                             daysAgendaNumber++;
                             return (
-                              <div key={agenda.ID_AGENDA} className="calendar__agenda" onClick={() => {alert(messages[iii] ?? "Y'aura pas d'autres messages, mais promis, je vais en ajouter si ça vous amuse => En revanche, ça ralentira la durée de développement de la fonctionnalité"); setIii(iii + 1)}}></div>
+                              <div key={agenda.ID_AGENDA} className="calendar__agenda" onClick={() => {alert(messages[messageIndex] ?? "Y'aura pas d'autres messages, mais promis, je vais en ajouter si ça vous amuse => En revanche, ça ralentira la durée de développement de la fonctionnalité"); setMessageIndex(messageIndex + 1)}}></div>
                             )
                           }
                         })}

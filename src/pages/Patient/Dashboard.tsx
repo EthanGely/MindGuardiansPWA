@@ -58,7 +58,7 @@ function Dashboard() {
       <div className="main-body u-h-100 flex-col u-g-3">
         <div className="card__list list-3 u-h-85">
           {usedCards.map((card) => (
-            <div className="card card--rounded card--shadow" key={card.title}>
+            <div className="card card--rounded card--shadow u-h-45" key={card.title}>
               <div className="card__item-info">
                 <h3 className="card__title">
                   <a

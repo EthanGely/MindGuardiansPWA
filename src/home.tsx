@@ -1,5 +1,4 @@
 import LogoMindGaurdians from "./assets/logo-mind-guardians.png";
-import Footer from "./components/footer";
 
 function Home() {
   return (
@@ -31,7 +30,6 @@ function Home() {
           </button>
         </div>
       </div>
-      <Footer />
     </>
   );
 }
