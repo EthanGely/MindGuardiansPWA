@@ -1,31 +1,31 @@
 import { useState } from "react";
+import AgendaPopUp from "./AgendaPopUp";
+import Agenda from "./AgendaType";
 
 interface MonthProps {
   selectedDate: Date;
-  agendas: [];
+  agendas: Agenda[];
 }
 
 const messages = [
-  'Un agenda est prévu ce jour, mais le dev n\'a pas encore eu le temps d\'y travailler... ;(',
-  'Pour accélérer le développement, offrez-moi une boisson énergisante (non, je n\'aime pas le café...) !',
-  'Patience... Cliquer sur ce message ne fera pas apparaître l\'agenda plus vite...',
-  'Un jour, un agenda apparaîtra... Mais pas aujourd\'hui !',
-  'Heuuu...',
-  '... Non, toujours pas !',
-  'Un jour, peut-être...',
-  '... Ou pas !',
-  'Toujours pas...',
-  '... Toujours rien...',
-  '... Toujours pas...',
-  'Non, rien de rien, Non, je ne fait rien',
-  'Attendez...',
-  'Essayez encore une fois ?',
-  'Je crois que ça vient',
-  'Le prochain clic sera le bon !',
-  'Mince, raté !',
+  "Un agenda est prévu ce jour, mais le dev n'a pas encore eu le temps d'y travailler... ;(",
+  "Pour accélérer le développement, offrez-moi une boisson énergisante (non, je n'aime pas le café...) !",
+  "Patience... Cliquer sur ce message ne fera pas apparaître l'agenda plus vite...",
+  "Un jour, un agenda apparaîtra... Mais pas aujourd'hui !",
+  "Heuuu...",
+  "... Non, toujours pas !",
+  "Un jour, peut-être...",
+  "... Ou pas !",
+  "Toujours pas...",
+  "... Toujours rien...",
+  "... Toujours pas...",
+  "Non, rien de rien, Non, je ne fait rien",
+  "Attendez...",
+  "Essayez encore une fois ?",
+  "Je crois que ça vient",
+  "Le prochain clic sera le bon !",
+  "Mince, raté !",
 ];
-
-const [openedPopup, setOpenedPopup] = useState(false);
 
 function capitalize(str: string) {
   if (!str) return "";
@@ -36,6 +36,9 @@ const today = new Date();
 
 function MonthView({ selectedDate, agendas }: MonthProps) {
   const [messageIndex, setMessageIndex] = useState(0);
+  const [openedPopup, setOpenedPopup] = useState(false);
+  const [selectedAgenda, setSelectedAgenda] = useState<Agenda | Agenda[] | null>(null);
+
   //Get the number of days in the month
   const daysInMonth = new Date(
     selectedDate.getFullYear(),
@@ -55,21 +58,25 @@ function MonthView({ selectedDate, agendas }: MonthProps) {
     today.getFullYear() === selectedDate.getFullYear();
 
   // Tri des agendas par durée
-  agendas.sort((a: any, b: any) => {
-    if (Math.abs(a.AGN_DATEFIN - a.AGN_DATEDEBUT) < Math.abs(b.AGN_DATEFIN - b.AGN_DATEDEBUT)) {
+  agendas.sort((a: Agenda, b: Agenda) => {
+    if (
+      Math.abs(a.AGN_DATEFIN - a.AGN_DATEDEBUT) <
+      Math.abs(b.AGN_DATEFIN - b.AGN_DATEDEBUT)
+    ) {
       return 1;
     }
-    if (Math.abs(a.AGN_DATEFIN - a.AGN_DATEDEBUT) > Math.abs(b.AGN_DATEFIN - b.AGN_DATEDEBUT)) {
+    if (
+      Math.abs(a.AGN_DATEFIN - a.AGN_DATEDEBUT) >
+      Math.abs(b.AGN_DATEFIN - b.AGN_DATEDEBUT)
+    ) {
       return -1;
     }
     return 0;
   });
 
-
   const handleAgendaClick = () => {
-
     setOpenedPopup(!openedPopup);
-  }
+  };
 
   console.log(agendas);
   return (
@@ -119,20 +126,51 @@ function MonthView({ selectedDate, agendas }: MonthProps) {
                         }
                       >
                         <p className="calendar__day">{day}</p>
+                        <div className="calendar__agenda-wrapper">
                         {agendas.map((agenda: any) => {
-                          const dateDebut = new Date(agenda.AGN_DATEDEBUT * 1000);
+                          const dateDebut = new Date(
+                            agenda.AGN_DATEDEBUT * 1000
+                          );
                           const dateFin = new Date(agenda.AGN_DATEFIN * 1000);
 
-                          const currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), day);
-                          const currentDateEnd = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), day, 23, 59, 59);
-                          
-                          if ( (dateDebut <= currentDateEnd && dateFin >= currentDate) && daysAgendaNumber < 3) {
+                          const currentDate = new Date(
+                            selectedDate.getFullYear(),
+                            selectedDate.getMonth(),
+                            day
+                          );
+                          const currentDateEnd = new Date(
+                            selectedDate.getFullYear(),
+                            selectedDate.getMonth(),
+                            day,
+                            23,
+                            59,
+                            59
+                          );
+
+                          if (
+                            dateDebut <= currentDateEnd &&
+                            dateFin >= currentDate &&
+                            daysAgendaNumber < 3
+                          ) {
                             daysAgendaNumber++;
                             return (
-                              <div key={agenda.ID_AGENDA} className="calendar__agenda" onClick={() => {alert(messages[messageIndex] ?? "Y'aura pas d'autres messages, mais promis, je vais en ajouter si ça vous amuse => En revanche, ça ralentira la durée de développement de la fonctionnalité"); setMessageIndex(messageIndex + 1)}}></div>
-                            )
+                              <>
+                              <div
+                                key={agenda.ID_AGENDA}
+                                className="calendar__agenda"
+                                onClick={() => {
+                                  alert(
+                                    messages[messageIndex] ??
+                                      "Y'aura pas d'autres messages, mais promis, je vais en ajouter si ça vous amuse => En revanche, ça ralentira la durée de développement de la fonctionnalité"
+                                  );
+                                  setMessageIndex(messageIndex + 1);
+                                }}
+                              ></div>
+                              </>
+                            );
                           }
                         })}
+                        </div>
                       </div>
                     );
                   } else {
@@ -143,12 +181,21 @@ function MonthView({ selectedDate, agendas }: MonthProps) {
                       ></div>
                     );
                   }
+                  
                 })}
               </div>
             );
           })}
         </div>
       </div>
+      <button
+        onClick={() => {
+          handleAgendaClick();
+        }}
+      >
+        Open pop up
+      </button>
+      {openedPopup && selectedAgenda && <AgendaPopUp agenda={selectedAgenda} />}
     </>
   );
 }

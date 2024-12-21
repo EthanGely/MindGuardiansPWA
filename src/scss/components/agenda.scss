@@ -80,11 +80,11 @@
     margin-bottom: 8px;
 
     &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        cursor: pointer;
-        z-index: 2;
+      content: "";
+      position: absolute;
+      inset: 0;
+      cursor: pointer;
+      z-index: 2;
     }
 
     &:nth-child(odd) {
@@ -93,6 +93,12 @@
 
     &:nth-child(even) {
       background-color: $color-secondary;
+    }
+
+    &-wrapper {
+      width: 100%;
+      height: 50%;
+      margin-top: auto;
     }
   }
 }

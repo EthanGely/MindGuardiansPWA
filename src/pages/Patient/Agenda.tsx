@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import AgendaMonthView from "../calendar/MonthView";
+import AgendaType from "../calendar/AgendaType";
 const modeOptions: { [key: number]: string } = {
   0: "Mois",
   1: "Semaine",
@@ -14,7 +15,7 @@ function capitalize(str: string) {
 function Agenda() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [mode, setMode] = useState(0);
-  const [agendas, setAgendas] = useState<[]>([]);
+  const [agendas, setAgendas] = useState<AgendaType[]>([]);
 
   const formattedDate = useMemo(() => {
     switch (mode) {
