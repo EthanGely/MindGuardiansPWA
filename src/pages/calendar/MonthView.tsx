@@ -7,26 +7,6 @@ interface MonthProps {
   agendas: Agenda[];
 }
 
-const messages = [
-  "Un agenda est prévu ce jour, mais le dev n'a pas encore eu le temps d'y travailler... ;(",
-  "Pour accélérer le développement, offrez-moi une boisson énergisante (non, je n'aime pas le café...) !",
-  "Patience... Cliquer sur ce message ne fera pas apparaître l'agenda plus vite...",
-  "Un jour, un agenda apparaîtra... Mais pas aujourd'hui !",
-  "Heuuu...",
-  "... Non, toujours pas !",
-  "Un jour, peut-être...",
-  "... Ou pas !",
-  "Toujours pas...",
-  "... Toujours rien...",
-  "... Toujours pas...",
-  "Non, rien de rien, Non, je ne fait rien",
-  "Attendez...",
-  "Essayez encore une fois ?",
-  "Je crois que ça vient",
-  "Le prochain clic sera le bon !",
-  "Mince, raté !",
-];
-
 function capitalize(str: string) {
   if (!str) return "";
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -35,7 +15,6 @@ function capitalize(str: string) {
 const today = new Date();
 
 function MonthView({ selectedDate, agendas }: MonthProps) {
-  const [messageIndex, setMessageIndex] = useState(0);
   const [openedPopup, setOpenedPopup] = useState(false);
   const [selectedAgenda, setSelectedAgenda] = useState<Agenda | Agenda[] | null>(null);
 
@@ -75,10 +54,10 @@ function MonthView({ selectedDate, agendas }: MonthProps) {
   });
 
   const handleAgendaClick = () => {
-    setOpenedPopup(!openedPopup);
+    setOpenedPopup(true);
   };
 
-  console.log(agendas);
+  //console.log(agendas);
   return (
     <>
       <div id="calendar" className="calendar">
@@ -117,7 +96,7 @@ function MonthView({ selectedDate, agendas }: MonthProps) {
                     let daysAgendaNumber = 0;
                     return (
                       <div
-                        key={j}
+                        key={i + '-' + j}
                         className={
                           "calendar__cell" +
                           (isCurrentMonth && today.getDate() === day
@@ -154,19 +133,15 @@ function MonthView({ selectedDate, agendas }: MonthProps) {
                           ) {
                             daysAgendaNumber++;
                             return (
-                              <>
+                              
                               <div
-                                key={agenda.ID_AGENDA}
+                                key={i + '-' + j + '-' + agenda.ID_AGENDA}
                                 className="calendar__agenda"
                                 onClick={() => {
-                                  alert(
-                                    messages[messageIndex] ??
-                                      "Y'aura pas d'autres messages, mais promis, je vais en ajouter si ça vous amuse => En revanche, ça ralentira la durée de développement de la fonctionnalité"
-                                  );
-                                  setMessageIndex(messageIndex + 1);
+                                  setSelectedAgenda(agenda);
+                                  handleAgendaClick();
                                 }}
                               ></div>
-                              </>
                             );
                           }
                         })}
@@ -176,7 +151,7 @@ function MonthView({ selectedDate, agendas }: MonthProps) {
                   } else {
                     return (
                       <div
-                        key={j}
+                        key={i + '-' + j}
                         className="calendar__cell calendar__cell--empty"
                       ></div>
                     );
@@ -190,12 +165,12 @@ function MonthView({ selectedDate, agendas }: MonthProps) {
       </div>
       <button
         onClick={() => {
-          handleAgendaClick();
+          setOpenedPopup(!openedPopup);
         }}
       >
         Open pop up
       </button>
-      {openedPopup && selectedAgenda && <AgendaPopUp agenda={selectedAgenda} />}
+      {openedPopup && selectedAgenda && <AgendaPopUp agenda={selectedAgenda} setOpened={setOpenedPopup} />}
     </>
   );
 }

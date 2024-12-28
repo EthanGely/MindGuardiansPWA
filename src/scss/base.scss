@@ -22,7 +22,7 @@ html {
   font-size: 20px;
   color-scheme: light dark;
   color: $color-text;
-  background-color: $color-page-background;
+  //background-color: $color-page-background;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -47,6 +47,7 @@ html {
     gap: 30px;
 
     main.main-content {
+      position: relative;
       height: 85%;
 
       .main-body {
