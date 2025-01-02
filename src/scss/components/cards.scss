@@ -67,6 +67,11 @@
     }
   }
 
+  button.card__link {
+    border: none;
+    background-color: transparent;
+  }
+
   &__icon {
     padding: 30px;
     width: 100%;
