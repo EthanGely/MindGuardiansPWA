@@ -105,10 +105,8 @@ const SignupPatient: React.FC = () => {
       newFormData.USER_ROLEID = 1;
 
       const response = await authContext.signIn(newFormData);
-      console.log("response", response);
       
       if(response && typeof response === "string") {
-        console.log("navigating to ", response);
         
         navigate(response);
         return;
@@ -174,7 +172,6 @@ const SignupPatient: React.FC = () => {
             </button>
           </fieldset>
         </form>
-        <button onClick={() => setStep(step + 1)}>Prochaine étape</button>
       </>
     );
   } else if (step === 2) {
@@ -283,7 +280,6 @@ const SignupPatient: React.FC = () => {
             </button>
           </fieldset>
         </form>
-        <button onClick={() => setStep(step + 1)}>Prochaine étape</button>
       </>
     );
   }
