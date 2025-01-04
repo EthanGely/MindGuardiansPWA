@@ -71,6 +71,7 @@
     & input[type="date"],
     & input[type="email"],
     & input[type="time"],
+    & input[type="password"],
     & select {
       border-radius: $spacer-2;
       background: transparent;
