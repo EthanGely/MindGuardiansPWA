@@ -17,11 +17,11 @@ const repetitonCron: { [key: string]: string } = {
   "5": "Personnalisé",
 };
 
-const repetitionDuree: { [key: string]: string } = {
+/*const repetitionDuree: { [key: string]: string } = {
   "0": "Toujours",
   "1": "Nombre de répétitions",
   "2": "Jusqu'au",
-};
+};*/
 
 const Agenda = ({ agenda, setOpened }: AgendaProps) => {
   const [editMode, setEditMode] = useState(false);

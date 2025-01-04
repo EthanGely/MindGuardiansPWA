@@ -163,13 +163,6 @@ function MonthView({ selectedDate, agendas }: MonthProps) {
           })}
         </div>
       </div>
-      <button
-        onClick={() => {
-          setOpenedPopup(!openedPopup);
-        }}
-      >
-        Open pop up
-      </button>
       {openedPopup && selectedAgenda && <AgendaPopUp agenda={selectedAgenda} setOpened={setOpenedPopup} />}
     </>
   );

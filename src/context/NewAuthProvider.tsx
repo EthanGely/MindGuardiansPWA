@@ -1,20 +1,12 @@
-import {
-  useContext,
-  createContext,
-  useState,
-  ReactNode,
-  useEffect,
-} from "react";
+import { useContext, createContext, useState, ReactNode, useEffect } from "react";
 
 const serveurUrl = "https://ethan-server.com:8443";
 
 interface AuthContextType {
   token: string;
-  loginAction: (
-    usermail: string,
-    password: string
-  ) => Promise<boolean | string>;
+  loginAction: (usermail: string, password: string) => Promise<boolean | string>;
   logOut: () => void;
+  signIn: (userData: {}) => Promise<boolean | string>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -25,12 +17,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const checkTokenValidity = async () => {
       const token = localStorage.getItem("jwtToken");
-      if (
-        token &&
-        token !== undefined &&
-        token !== "undefined" &&
-        token !== ""
-      ) {
+      if (token && token !== undefined && token !== "undefined" && token !== "") {
         fetch(serveurUrl + "/auth/checkToken", {
           method: "POST",
           headers: {
@@ -77,16 +64,34 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     return false;
   };
 
+  const signIn = async (userData: {}) => {
+    const response = await fetch(serveurUrl + "/auth/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+
+    const res = await response.json();
+    console.log(res);
+
+    if (response.status === 200 && res.jwt && res.location) {
+      setToken(res.jwt);
+      localStorage.setItem("jwtToken", res.jwt);
+      return res.location;
+    } else {
+      console.log("no token");
+    }
+    return false;
+  };
+
   const logOut = () => {
     setToken("");
     localStorage.removeItem("jwtToken");
   };
 
-  return (
-    <AuthContext.Provider value={{ token, loginAction, logOut }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ token, loginAction, logOut, signIn }}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;

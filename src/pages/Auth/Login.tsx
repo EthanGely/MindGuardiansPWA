@@ -45,7 +45,6 @@ const Login: React.FC = () => {
   return (
     <div>
       <h2>
-        Connexion à
         <div className="logo u-align-center u-mb-8">
           <img src={LogoMindGaurdians} alt="Logo Mind Guardians" />
         </div>

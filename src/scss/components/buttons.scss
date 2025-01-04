@@ -1,4 +1,5 @@
 .button {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,6 +11,7 @@
   color: var(--btn-text-color, $color-text);
   transition: all 0.3s ease;
   cursor: pointer;
+  z-index: 5;
 
   &:not(:disabled) {
     &:hover,
@@ -20,13 +22,6 @@
     }
   }
 
-  &:disabled {
-    cursor: default;
-    background-color: transparent;
-    border-color: transparent;
-    color: transparent;
-  }
-
   &--primary {
     --btn-border-color: #{$color-primary};
     --btn-background-color: #{$color-primary};
@@ -35,6 +30,13 @@
     --btn-border-color-hover: #{$color-primary-light};
     --btn-background-color-hover: #{$color-primary-light};
     --btn-text-color-hover: #{$color-light};
+
+    &:disabled {
+      cursor: not-allowed;
+      background-color: #{$color-gray-400};
+      border-color: #{$color-gray-400};
+      color: #{$color-light};
+    }
 
     &-dark {
       --btn-border-color: #{$color-primary-dark};
@@ -70,5 +72,12 @@
   &--small {
     --btn-padding-vertical: #{$spacer-3};
     --btn-padding-horizontal: #{$spacer-4};
+  }
+
+  &--disabled-invisible:disabled {
+    cursor: default;
+    background-color: transparent;
+    border-color: transparent;
+    color: transparent;
   }
 }

@@ -1,4 +1,5 @@
 import mgLogoBlanc from "../../assets/mg-icon-blanc.svg";
+import { useAuth } from "../../context/NewAuthProvider";
 
 interface HeaderProps {
   userType: string;
@@ -7,6 +8,11 @@ interface HeaderProps {
 }
 
 export default function Header({ userType, title, isHome }: HeaderProps) {
+  const authContext = useAuth();
+  if (!authContext) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+
   return (
     <header className={"header header--" + userType.toLocaleLowerCase()}>
       <div className="header__logo">
@@ -14,13 +20,20 @@ export default function Header({ userType, title, isHome }: HeaderProps) {
         <h1>{title}</h1>
       </div>
       <div className="header__buttons">
-        {isHome && (
-          <button className="button button--small">Réglages</button>
-        )}
+        {isHome && <button className="button button--small">Réglages</button>}
         {!isHome && (
-          <button className="button button--small" onClick={() => {window.location.href = "/" + userType.toLocaleLowerCase();}}>Accueil</button>
+          <button
+            className="button button--small"
+            onClick={() => {
+              window.location.href = "/" + userType.toLocaleLowerCase();
+            }}
+          >
+            Accueil
+          </button>
         )}
-        <button className="button button--small">Profil</button>
+        <button className="button button--small" onClick={authContext.logOut}>
+          Déconnexion
+        </button>
       </div>
     </header>
   );
