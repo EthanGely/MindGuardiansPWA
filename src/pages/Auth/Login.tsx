@@ -55,7 +55,8 @@ const Login: React.FC = () => {
             <label>Adresse Email:</label>
             <input
               className={ error && (usermail.length === 0 || password.length !== 0) ? "error" : ""}
-              type="email"
+              //type="email"
+              type="text"
               value={usermail}
               name="usermail"
               onChange={(e) => setUserMail(e.target.value)}
