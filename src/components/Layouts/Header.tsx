@@ -13,6 +13,12 @@ export default function Header({ userType, title, isHome }: HeaderProps) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
 
+  let docHasPatient = false;
+
+  if (userType.toLocaleLowerCase() === "docteur") {
+    docHasPatient = !!localStorage.getItem("selectedPatient");
+  }
+
   return (
     <header className={"header header--" + userType.toLocaleLowerCase()}>
       <div className="header__logo">
@@ -30,6 +36,11 @@ export default function Header({ userType, title, isHome }: HeaderProps) {
           >
             Accueil
           </button>
+        )}
+        {docHasPatient && (
+          <button className="button button--small" onClick={() => {localStorage.removeItem("selectedPatient"); window.location.href = "/docteur/selectionPatient"}}>
+          Changer de patient
+        </button>
         )}
         <button className="button button--small" onClick={authContext.logOut}>
           Déconnexion

@@ -6,6 +6,7 @@ const pageTitles: { [key: string]: string } = {
   "/patient": "Accueil",
   "/patient/agenda": "Agenda",
   "/patient/chat": "Chat with Doctor",
+  "/patient/puzzle": "Puzzle",
 };
 
 const PatientLayout: React.FC = () => {

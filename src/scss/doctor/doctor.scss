@@ -1,0 +1,27 @@
+.patients-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+
+    .patient {
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 20px;
+        background-color: $color-light;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: $color-primary-light;
+        }
+    }
+}
+
+@import "./headerDoctor.scss";

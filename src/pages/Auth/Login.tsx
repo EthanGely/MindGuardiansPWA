@@ -25,7 +25,7 @@ const Login: React.FC = () => {
           } else {
             console.log(location)
             
-            setError("Erreur de connexion.<br>L'adresse email ou le mot de passe sont incorrect.");
+            setError("Erreur de connexion.<br>L'adresse email ou le mot de passe est incorrect.");
           }
         })
         .catch((error) => {
@@ -34,7 +34,7 @@ const Login: React.FC = () => {
           if (error.message.includes("NetworkError")) {
             setError("L'application semble indisponible.<br>Le service informatique à été prévenu de cette erreur.<br>Merci de rééssayer plus tard.");
           } else {
-            setError("Erreur de connexion.<br>L'adresse email ou le mot de passe sont incorrect.");
+            setError("Erreur de connexion.<br>L'adresse email ou le mot de passe est incorrect.");
           }
         });
     } else {

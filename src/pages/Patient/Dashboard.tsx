@@ -1,10 +1,11 @@
 import { useState } from "react";
-import puzzle from "../../assets/date.svg";
-import memorisation from "../../assets/date.svg";
+import puzzle from "../../assets/puzzle.png";
+import agenda from "../../assets/date.svg";
+/*
 import associationImage from "../../assets/date.svg";
 import jeuLogique from "../../assets/date.svg";
 import motsCroisés from "../../assets/date.svg";
-import devinettes from "../../assets/date.svg";
+import devinettes from "../../assets/date.svg";*/
 
 const itemsPerPage = 6;
 
@@ -13,37 +14,37 @@ function Dashboard() {
   const cards = [
     {
       title: "Agenda",
-      icon: puzzle,
+      icon: agenda,
       link: "agenda",
     },
     {
-      title: "Mémorisation",
-      icon: memorisation,
-      link: "memorisation",
+      title: "Puzzle",
+      icon: puzzle,
+      link: "puzzle",
     },
     {
       title: "Association d'images",
-      icon: associationImage,
+      icon: null,
       link: "association-image",
     },
     {
       title: "Jeu de logique",
-      icon: jeuLogique,
+      icon: null,
       link: "jeu-logique",
     },
     {
       title: "Mots croisés",
-      icon: motsCroisés,
+      icon: null,
       link: "mots-croisés",
     },
     {
       title: "Devinettes",
-      icon: devinettes,
+      icon: null,
       link: "devinettes",
     },
     {
       title: "Mots croisés",
-      icon: motsCroisés,
+      icon: null,
       link: "mots-croisés",
     },
   ];
@@ -61,38 +62,29 @@ function Dashboard() {
             <div className="card card--rounded card--shadow u-h-45" key={card.title}>
               <div className="card__item-info">
                 <h3 className="card__title">
-                  <a
-                    className="card__link card__link--cover"
-                    href={"patient/" + card.link}
-                  >
+                  <a className="card__link card__link--cover" href={"patient/" + card.link}>
                     {card.title}
                   </a>
                 </h3>
               </div>
-              <div className="card__icon">
-                <img src={card.icon} alt={card.title} />
-              </div>
+              {card.icon && (
+                <div className="card__icon">
+                  <img src={card.icon} alt={card.title} />
+                </div>
+              )}
             </div>
           ))}
         </div>
         <div className="flex flex-center-aligncenter u-g-8 u-h-10">
-          <button
-            className="button button--primary"
-            onClick={() => setPage(page - 1)}
-            disabled={page == 1}
-          >
+          <button className="button button--primary" onClick={() => setPage(page - 1)} disabled={page == 1}>
             Précédent
           </button>
           <div>
             Page {page} / {Math.ceil(cards.length / itemsPerPage)}
           </div>
-            <button
-              className="button button--primary"
-              onClick={() => setPage(page + 1)}
-              disabled={page == Math.ceil(cards.length / itemsPerPage)}
-            >
-              Suivant
-            </button>
+          <button className="button button--primary" onClick={() => setPage(page + 1)} disabled={page == Math.ceil(cards.length / itemsPerPage)}>
+            Suivant
+          </button>
         </div>
       </div>
     </>

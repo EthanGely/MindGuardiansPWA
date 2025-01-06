@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useAuth } from "../../../context/NewAuthProvider";
+import { useAuth } from "../../context/NewAuthProvider";
 import { useNavigate } from "react-router-dom";
 
-interface patientData {
+interface userData {
   USER_MAIL: string;
   USER_LANG: string;
   USER_FIRSTNAME: string;
@@ -11,14 +11,12 @@ interface patientData {
   USER_VOLUME: number;
   USER_BIRTH: number;
   USER_SEXE: number;
-  USER_HEUREREVEIL: string;
-  USER_HEURECOUCHER: string;
   USER_PASSWORD: string;
   USER_PASSWORDCONFIRM: string;
   USER_ROLEID: number;
 }
 
-const defaultData: patientData = {
+const defaultData: userData = {
   USER_MAIL: "",
   USER_LANG: "FR",
   USER_FIRSTNAME: "",
@@ -27,17 +25,15 @@ const defaultData: patientData = {
   USER_VOLUME: 50,
   USER_BIRTH: 0,
   USER_SEXE: -1,
-  USER_HEUREREVEIL: "",
-  USER_HEURECOUCHER: "",
   USER_PASSWORD: "",
   USER_PASSWORDCONFIRM: "",
-  USER_ROLEID: 1,
+  USER_ROLEID: 2,
 };
 
 const choseLangue = false;
 
-const SignupPatient: React.FC = () => {
-  const [formData, setFormData] = useState<patientData>(defaultData);
+const SignupCommon: React.FC = () => {
+  const [formData, setFormData] = useState<userData>(defaultData);
   const [step, setStep] = useState(1);
   const [error, setError] = useState<boolean>(true);
 
@@ -59,15 +55,12 @@ const SignupPatient: React.FC = () => {
     });
   };
 
-  const checkFormInputs = (updatedFormData: patientData) => {
+  const checkFormInputs = (updatedFormData: userData) => {
     if (step === 1) {
       if (updatedFormData.USER_FIRSTNAME === "" || updatedFormData.USER_LASTNAME === "" || updatedFormData.USER_BIRTH === 0 || updatedFormData.USER_SEXE === -1) {
         return false;
       }
     } else if (step === 2) {
-      if (updatedFormData.USER_HEUREREVEIL === "" || updatedFormData.USER_HEURECOUCHER === "") {
-        return false;
-      }
     } else if (step === 3) {
       if (updatedFormData.USER_PASSWORD === "" || updatedFormData.USER_PASSWORDCONFIRM === "" || updatedFormData.USER_PASSWORD !== updatedFormData.USER_PASSWORDCONFIRM) {
         return false;
@@ -88,12 +81,6 @@ const SignupPatient: React.FC = () => {
         return;
       }
 
-      if (formData.USER_HEUREREVEIL === "" || formData.USER_HEURECOUCHER === "") {
-        setStep(2);
-        setError(true);
-        return;
-      }
-
       if (formData.USER_MAIL === "" || formData.USER_PASSWORD === "" || formData.USER_PASSWORDCONFIRM === "" || formData.USER_PASSWORD !== formData.USER_PASSWORDCONFIRM) {
         setStep(3);
         setError(true);
@@ -102,6 +89,7 @@ const SignupPatient: React.FC = () => {
 
       let newFormData = { ...formData };
       newFormData.USER_BIRTH = Math.floor(new Date(newFormData.USER_BIRTH).getTime() / 1000);
+      newFormData.USER_ROLEID = 1;
 
       const response = await authContext.signIn(newFormData);
       
@@ -221,19 +209,6 @@ const SignupPatient: React.FC = () => {
                 <input type="range" name="USER_FONTSIZE" id="USER_FONTSIZE" min="10" max="30" step="1" value={formData.USER_FONTSIZE} onChange={handleChange} />
               </div>
             </div>
-            <div className="form__inputGroup">
-              <p className="form__libelle">Heures d'activité</p>
-              <div className="form__inputs">
-                <label htmlFor="USER_HEUREREVEIL" className="hidden">
-                  Heure du réveil
-                </label>
-                <input type="time" name="USER_HEUREREVEIL" id="USER_HEUREREVEIL" value={formData.USER_HEUREREVEIL} placeholder="Heure du réveil" onChange={handleChange} />
-                <label htmlFor="USER_HEURECOUCHER" className="hidden">
-                  Heure du coucher
-                </label>
-                <input type="time" name="USER_HEURECOUCHER" id="USER_HEURECOUCHER" value={formData.USER_HEURECOUCHER} placeholder="Heure du coucher" onChange={handleChange} />
-              </div>
-            </div>
             <button type="submit" disabled={error} className="button button--primary button--small u-mt-4 u-align-center">
               Prochaine étape
             </button>
@@ -284,4 +259,4 @@ const SignupPatient: React.FC = () => {
   }
 };
 
-export default SignupPatient;
+export default SignupCommon;

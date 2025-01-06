@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import AppRouter from "./routes/AppRouter";
 import AuthProvider from "./context/NewAuthProvider";
@@ -14,9 +13,9 @@ if (process.env.NODE_ENV === "production") {
 
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
+  //<React.StrictMode>
     <AuthProvider>
       <AppRouter />
     </AuthProvider>
-  </React.StrictMode>
+  //</React.StrictMode>
 );

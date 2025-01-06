@@ -1,0 +1,36 @@
+.accordion {
+
+  &__button {
+    background-color: $color-gray-400;
+    color: $color-text;
+    cursor: pointer;
+    padding: 18px;
+    margin-top: $spacer-4;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    border-radius: $spacer-2;
+    transition: all 0.3s;
+
+    &:hover,
+    &:focus {
+      background-color: $color-gray-500;
+    }
+
+    &--active {
+      background-color: #ccc;
+
+      & + .accordion__panel {
+        max-height: 100%;
+      }
+    }
+  }
+  &__panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+}
