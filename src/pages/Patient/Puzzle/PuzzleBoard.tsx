@@ -2,34 +2,35 @@ import { useState } from "react";
 import PuzzlePiece from "./PuzzlePiece";
 
 const PuzzleBoard: React.FC<{ pieces: PuzzlePiece[] }> = ({ pieces }) => {
+  console.log("Displaying puzzle board");
+  
   const [selectedPiece, setSelectedPiece] = useState<PuzzlePiece | null>(null);
   const [currentPieces, setCurrentPieces] = useState(pieces);
   const [puzzleCompleted, setPuzzleCompleted] = useState(false);
+  const [error, setError] = useState(0);
 
   const handleDestinationClick = (destination: PuzzlePiece) => {
-    console.log("destination clicked");
+    let errors = error;
 
     if (selectedPiece) {
-      console.log("Piece is selected");
       const newPieces = currentPieces.map((piece) => {
         if (piece === selectedPiece) {
           if (piece.id === destination.id) {
-            console.log("well placed !");
             return { ...piece, position: destination.correctPosition };
           } else {
-            console.log("not well placed ! :", piece.id, destination.id);
+              errors++;
           }
         }
-
         return piece;
       });
 
       if (newPieces.every((piece) => piece.position === piece.correctPosition)) {
-        console.log("puzzle completed !");
         setPuzzleCompleted(true);
       }
+      setSelectedPiece(null);
 
       setCurrentPieces(newPieces);
+      setError(errors);
       return;
     }
     console.log("no selected piece");
@@ -58,10 +59,9 @@ const PuzzleBoard: React.FC<{ pieces: PuzzlePiece[] }> = ({ pieces }) => {
         ))}
         {currentPieces.map((piece) => (
           <div
-            className={piece.position !== piece.correctPosition ? "puzzle__destination" : "puzzle__destination puzzle__destination--correct"}
+            className={piece.position !== piece.correctPosition ? "puzzle__destination" + (selectedPiece ? ' puzzle__destination--selectable' : '') : "puzzle__destination puzzle__destination--correct"}
             key={piece.id}
             style={{
-              cursor: piece.position === piece.correctPosition ? "default" : selectedPiece ? "pointer" : "not-allowed",
               zIndex: 1,
               gridArea: `${piece.correctPosition.y / 100 + 1} / ${piece.correctPosition.x / 100 + 1}`,
             }}
@@ -69,6 +69,7 @@ const PuzzleBoard: React.FC<{ pieces: PuzzlePiece[] }> = ({ pieces }) => {
           />
         ))}
       </div>
+      <div className="puzzle__error">Nombre d'erreurs : {error}</div>
       {puzzleCompleted && (
         <div className="puzzle__complete">
           <h2>Puzzle complet !</h2>

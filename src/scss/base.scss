@@ -44,11 +44,11 @@ html {
     max-height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 15px;
 
     main.main-content {
       position: relative;
-      height: 85%;
+      height: calc(85% - 15px);
 
       .main-body {
         height: 100%;

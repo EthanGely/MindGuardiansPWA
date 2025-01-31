@@ -62,6 +62,7 @@ const ImageSelection: React.FC<{ onImageSelect: (image: string) => void }> = ({ 
         {imageList.map((image) => (
           <img className="image-list__item" src={image} alt="puzzle" key={image} onClick={handleImageSelect} />
         ))}
+        {!imageList.length && <div>Chargement des images...</div>}
       </div>
     </div>
     );
