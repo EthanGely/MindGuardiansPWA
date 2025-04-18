@@ -100,7 +100,7 @@ const SignupPatient: React.FC = () => {
         return;
       }
 
-      let newFormData = { ...formData };
+      const newFormData = { ...formData };
       newFormData.USER_BIRTH = Math.floor(new Date(newFormData.USER_BIRTH).getTime() / 1000);
 
       const response = await authContext.signIn(newFormData);

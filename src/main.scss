@@ -1,12 +1,12 @@
 // Scss stylesheets
-@import "./scss/variables.scss";
-@import "./scss/spacers.scss";
-@import "./scss/utilities.scss";
-//@import './scss/mixins';
-@import "./scss/reset";
-@import "./scss/base";
-@import "./scss/headings.scss";
-@import "./scss/layout";
-@import "./scss/components";
-@import "./scss/patient/patient.scss";
-@import "./scss/doctor/doctor.scss";
+@use "scss/variables.scss";
+@use "scss/spacers.scss";
+@use "scss/utilities.scss";
+//@use './scss/mixins';
+@use "scss/reset";
+@use "scss/base";
+@use "scss/headings.scss";
+@use "scss/layout";
+@use "scss/components";
+@use "scss/patient/patient.scss";
+@use "scss/doctor/doctor.scss";

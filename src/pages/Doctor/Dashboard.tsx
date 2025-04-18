@@ -1,6 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import imageCalendar from "../../assets/calendar.png";
+import imageInfo from "../../assets/user-square.svg";
+import imageExo from "../../assets/dice.svg";
+import imageCarnet from "../../assets/book.svg";
+import imageSms from "../../assets/sms.svg";
 
 interface Patient {
   USER_ID: number;
@@ -10,7 +14,7 @@ interface Patient {
   USER_SEXE: number;
 }
 
-const itemsPerPage = 5;
+const itemsPerPage :number = 5;
 const itemsLine1 = 2;
 
 function Dashboard() {
@@ -55,7 +59,7 @@ function Dashboard() {
           body: JSON.stringify({ patientId: patientId }),
         });
 
-        let res = await response.json();
+        const res = await response.json();
 
         const patientsRes = res.user;
         const expirationDate = Date.now() + 3600000;
@@ -67,59 +71,38 @@ function Dashboard() {
       return;
     };
     checkPatient();
-  }, []);
+  }, [navigate]);
 
   if (!patient) {
     return <div>Chargement...</div>;
   }
 
-  let patientInfoHtml = "<p>" + patient.USER_FIRSTNAME + " " + patient.USER_LASTNAME + "</p>";
-
-  const birthDate = new Date(patient.USER_BIRTH * 1000);
-  const formattedBirthDate = `${birthDate.getDate().toString().padStart(2, "0")}/${(birthDate.getMonth() + 1).toString().padStart(2, "0")}/${birthDate.getFullYear()}`;
-  const ageDifMs = Date.now() - birthDate.getTime();
-  const ageDate = new Date(ageDifMs);
-  const age = Math.abs(ageDate.getUTCFullYear() - 1970);
-
-  patientInfoHtml += "<p>Date de naissance : " + formattedBirthDate + " (" + age + " ans)" + "</p>";
-  patientInfoHtml += "<p>Sexe : " + (patient.USER_SEXE == 1 ? "Homme" : patient.USER_SEXE == 2 ? "Autre" : "Femme") + "</p>";
   const cards = [
     {
-      title: "Informations patient",
-      content: patientInfoHtml,
+      title: "Informations",
       link: "detailsPatient",
+      image: imageInfo,
     },
     {
       title: "Exercices de stimulation",
-      content: "<p>Ajoutez des exercices de stimulation</p><p>En cours de développement...</p>",
       link: "",
+      image: imageExo,
     },
     {
-      title: "Notifications push",
-      content: "",
+      title: "Carnet de liaison",
       link: "",
+      image: imageCarnet,
     },
     {
       title: "Agenda",
-      content: "",
       link: "agenda",
       image: imageCalendar,
     },
     {
       title: "Communication et médias",
-      content: "",
       link: "",
-    },
-    {
-      title: "Lorem ipsum",
-      content: "<p>Lorem ipsum dolor sit amet</p>",
-      link: "",
-    },
-    {
-      title: "Lorem ipsum 2",
-      content: "<p>Lorem ipsum dolor sit amet</p>",
-      link: "",
-    },
+      image: imageSms,
+    }
   ];
 
   const usedCards = cards.slice((page - 1) * itemsPerPage, page * itemsPerPage);
@@ -133,7 +116,7 @@ function Dashboard() {
   return (
     <>
       <div className="main-body u-h-100 flex-col u-g-3">
-        <div className={`card__list list-${itemsLine1} u-h-45`}>
+        <div className={`card__list list-${itemsLine1}`}>
           {usedCardsLine1.map((card) => (
             <div className="card card--rounded card--shadow u-h-90" key={card.title}>
               <div className="card__item-info">
@@ -147,20 +130,15 @@ function Dashboard() {
                   )}
                 </h3>
               </div>
-              <div className="card__content">
-                <div dangerouslySetInnerHTML={{ __html: card.content }} />
-              </div>
-              {card.image ? (
+              {card.image && (
                 <div className="card__icon">
                   <img src={card.image} alt={card.title} />
                 </div>
-              ) : (
-                ""
               )}
             </div>
           ))}
         </div>
-        <div className="card__list list-3 u-h-40">
+        <div className="card__list list-3">
           {usedCardsLine2.map((card) => (
             <div className="card card--rounded card--shadow u-h-90" key={card.title}>
               <div className="card__item-info">
@@ -174,30 +152,27 @@ function Dashboard() {
                   )}
                 </h3>
               </div>
-              <div className="card__content">
-                <div dangerouslySetInnerHTML={{ __html: card.content }} />
-              </div>
-              {card.image ? (
+              {card.image && (
                 <div className="card__icon">
                   <img src={card.image} alt={card.title} />
                 </div>
-              ) : (
-                ""
               )}
             </div>
           ))}
         </div>
-        <div className="flex flex-center-aligncenter u-g-8 u-h-10">
+        { (cards.length > itemsPerPage) && (
+        <div className="flex flex-center-aligncenter u-g-8">
           <button className="button button--primary" onClick={() => setPage(page - 1)} disabled={page == 1}>
             Précédent
           </button>
-          <div>
+          <div onClick={() => alert(cards.length + " / " + itemsPerPage)}>
             Page {page} / {Math.ceil(cards.length / itemsPerPage)}
           </div>
           <button className="button button--primary" onClick={() => setPage(page + 1)} disabled={page == Math.ceil(cards.length / itemsPerPage)}>
             Suivant
           </button>
         </div>
+        )}
       </div>
     </>
   );

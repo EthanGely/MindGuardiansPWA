@@ -1,18 +1,14 @@
-import {
-  BrowserRouter as Router,
-  Navigate,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Navigate, Routes, Route } from "react-router-dom";
 import AuthRoutes from "./AuthRoutes";
 import PrivateRoute from "./PrivateRoute";
 
 /*------ ROUTES PATIENT ------ */
 import PatientLayout from "../components/Layouts/PatientLayout";
 import PatientDashboard from "../pages/Patient/Dashboard";
+import PatientJeux from "../pages/Patient/Jeux";
 import PatientAgenda from "../pages/Patient/Agenda";
 import PatientPuzzle from "../pages/Patient/Puzzle/Puzzle";
-import PatientPuzzleV2 from "../pages/Patient/Puzzle/Puzzle";
+//import PatientPuzzleV2 from "../pages/Patient/Puzzle/Puzzle";
 
 /*------ ROUTES DOCTEUR ------ */
 import DoctorLayout from "../components/Layouts/DoctorLayout";
@@ -32,8 +28,11 @@ const AppRouter = () => (
       <Route element={<PrivateRoute />}>
         <Route path="patient" element={<PatientLayout />}>
           <Route index element={<PatientDashboard />} />
-          <Route path="agenda" element={<PatientAgenda />} />
+          <Route path="jeux" element={<PatientJeux />}>
+            
+          </Route>
           <Route path="puzzle" element={<PatientPuzzle isV2={true} />} />
+          <Route path="agenda" element={<PatientAgenda />} />
           <Route path="*" element={<Navigate to="/patient" />} />
         </Route>
         <Route path="docteur" element={<DoctorLayout />}>

@@ -5,6 +5,8 @@ interface Patient {
   USER_ID: number;
   USER_FIRSTNAME: string;
   USER_LASTNAME: string;
+  USER_SEXE: string;
+  USER_BIRTH: number;
 }
 
 const PatientSelect: React.FC = () => {
@@ -27,7 +29,7 @@ const PatientSelect: React.FC = () => {
           });
           console.log("response", response);
 
-          let res = await response.json();
+          const res = await response.json();
 
           const patientsRes = res.users;
 
@@ -54,14 +56,28 @@ const PatientSelect: React.FC = () => {
   }
   return (
     <div>
-      <h2>Sélectionnez un patient</h2>
-      <ul className="patients-list">
-        {patients.map((patient) => (
-          <li className="patient" key={patient.USER_ID} onClick={() => handlePatientSelect(patient)}>
-            {patient.USER_FIRSTNAME} {patient.USER_LASTNAME}
-          </li>
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Sexe</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Âge</th>
+            <th>Espace patient</th>
+          </tr>
+        </thead>
+        <tbody>
+          {patients.map((patient) => (
+            <tr key={patient.USER_ID} onClick={() => handlePatientSelect(patient)}>
+              <td>{patient.USER_SEXE ? 'Homme' : 'Femme'}</td>
+              <td>{patient.USER_LASTNAME}</td>
+              <td>{patient.USER_FIRSTNAME}</td>
+              <td>{new Date().getFullYear() - new Date(patient.USER_BIRTH * 1000).getFullYear()} ans</td>
+              <td><button className="button button--small" onClick={() => handlePatientSelect(patient)}>Accéder</button></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

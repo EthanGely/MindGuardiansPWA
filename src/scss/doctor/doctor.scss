@@ -1,3 +1,6 @@
+@use "sass:meta";
+@use "../variables";
+
 .patients-list {
     display: flex;
     flex-wrap: wrap;
@@ -10,7 +13,7 @@
         width: 100%;
         margin-bottom: 20px;
         padding: 20px;
-        background-color: $color-light;
+        background-color: variables.$color-light;
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         cursor: pointer;
@@ -19,9 +22,9 @@
         &:hover,
         &:focus,
         &:active {
-            background-color: $color-primary-light;
+            background-color: variables.$color-primary-light;
         }
     }
 }
 
-@import "./headerDoctor.scss";
+@include meta.load-css("headerDoctor.scss");

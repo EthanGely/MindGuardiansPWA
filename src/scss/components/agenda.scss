@@ -1,3 +1,6 @@
+@use "../spacers";
+@use "../variables";
+
 .calendar {
   p {
     margin: 0;
@@ -52,14 +55,14 @@
     align-items: center;
     width: 100px;
     height: 100px;
-    border: 1px solid $color-gray-600;
+    border: 1px solid variables.$color-gray-600;
 
     &--empty {
-      background-color: $color-gray-400;
+      background-color: variables.$color-gray-400;
     }
 
     &--today {
-      background-color: $color-primary-light;
+      background-color: variables.$color-primary-light;
     }
   }
 
@@ -67,7 +70,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    padding: $spacer-2 0 0 $spacer-2;
+    padding: spacers.$spacer-2 0 0 spacers.$spacer-2;
   }
 
   &__date {
@@ -88,11 +91,11 @@
     }
 
     &:nth-child(odd) {
-      background-color: $color-secondary-dark;
+      background-color: variables.$color-secondary-dark;
     }
 
     &:nth-child(even) {
-      background-color: $color-secondary;
+      background-color: variables.$color-secondary;
     }
 
     &-wrapper {

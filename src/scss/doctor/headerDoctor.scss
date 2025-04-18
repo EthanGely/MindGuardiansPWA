@@ -1,19 +1,22 @@
+@use "../spacers";
+@use "../variables";
+
 .header {
 
     &--docteur{
       position: relative;
       display: flex;
       justify-content: space-between;
-      background-color: $color-secondary;
-      color: $color-white;
-      padding: $spacer-5 0;
+      background-color: variables.$color-secondary;
+      color: variables.$color-white;
+      padding: spacers.$spacer-5 0;
       z-index: 1;
   
       &::before {
         content: "";
         position: absolute;
         inset: 0 calc(50% - 50vw);
-        background-color: $color-secondary;
+        background-color: variables.$color-secondary;
         z-index: -1;
       }
     }
@@ -21,11 +24,12 @@
     &__logo {
       max-height: 50px;
       display: flex;
-      gap: $spacer-6;
+      gap: spacers.$spacer-6;
       align-items: center;
   
       img {
-        width: 100%;
+        width: 65px;
+        height: 50px;
         max-height: 100%;
         object-fit: contain;
       }
@@ -33,7 +37,7 @@
       h1 {
         font-size: 40px;
         font-weight: 400;
-        color: $color-light;
+        color: variables.$color-light;
         text-wrap: nowrap;
       }
     }

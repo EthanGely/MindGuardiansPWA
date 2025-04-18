@@ -5,7 +5,11 @@ import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), VitePWA({
+  plugins: [react({
+    babel: {
+      //plugins: [["babel-plugin-react-compiler"]],
+    },
+  }), VitePWA({
     registerType: 'autoUpdate',
     srcDir: 'src',
     filename: 'push-service-worker.js',
@@ -17,7 +21,7 @@ export default defineConfig({
       "start_url": "/",
       "name": "MindGuardians",
       "short_name": "MindGuardians",
-      "description": "MindGuardians, l\'application qui accompagne les personnes atteintes de la maladie d\'Alzheimer.",
+      "description": "MindGuardians, l'application qui accompagne les personnes atteintes de la maladie d'Alzheimer.",
       "icons": [
         {
           "src": "/icon-192x192.png",
@@ -69,6 +73,6 @@ export default defineConfig({
   })],
 
   build: {
-    sourcemap: true
-  }
-})
+    sourcemap: true,
+  },
+});

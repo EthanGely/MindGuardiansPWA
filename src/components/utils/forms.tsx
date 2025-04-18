@@ -14,7 +14,7 @@ export type FormsProps = {
     }[]
 };
 
-const Forms: React.FC<{ formData: FormsProps, action: Function }> = ({ formData, action }) => {
+const Forms: React.FC<{ formData: FormsProps, action: () => void }> = ({ formData, action }) => {
     return (
         <>
             <form className="formComponent">

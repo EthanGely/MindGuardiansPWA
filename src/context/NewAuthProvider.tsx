@@ -1,4 +1,4 @@
-import { useContext, createContext, useState, ReactNode, useEffect } from "react";
+import { createContext, useState, ReactNode, useEffect, useContext } from "react";
 
 const serveurUrl = "https://ethan-server.com:8443";
 
@@ -6,7 +6,7 @@ interface AuthContextType {
   token: string;
   loginAction: (usermail: string, password: string) => Promise<boolean | string>;
   logOut: () => void;
-  signIn: (userData: {}) => Promise<boolean | string>;
+  signIn: (userData: object) => Promise<boolean | string>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -64,7 +64,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     return false;
   };
 
-  const signIn = async (userData: {}) => {
+  const signIn = async (userData: object) => {
     const response = await fetch(serveurUrl + "/auth/signin", {
       method: "POST",
       headers: {
@@ -99,3 +99,4 @@ export default AuthProvider;
 export const useAuth = () => {
   return useContext(AuthContext);
 };
+

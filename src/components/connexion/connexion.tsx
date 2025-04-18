@@ -1,18 +1,16 @@
 import { useState } from 'react';
-// @ts-ignore
-import SelectRole from './selectRole';
+//import SelectRole from './selectRole';
 import ChoixLogSign from './choixLogSign';
 
 
 function Connexion() {
-    // @ts-ignore
-    const [role, setRole] = useState('');
+    const [role] = useState('');
 
     return (
         <>
         {role === '' ? '' : <ChoixLogSign/> }
         </>
     );
-};
+}
 
 export default Connexion;

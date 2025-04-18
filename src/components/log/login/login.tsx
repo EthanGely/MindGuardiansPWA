@@ -36,7 +36,7 @@ const Login = () => {
             } else {
                 setError(true);
             }
-            (error: any) => {
+            (error: Error) => {
                 console.error("Error:", error);
             }
         });

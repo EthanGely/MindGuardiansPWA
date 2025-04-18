@@ -60,7 +60,6 @@ const SignupCommon: React.FC = () => {
       if (updatedFormData.USER_FIRSTNAME === "" || updatedFormData.USER_LASTNAME === "" || updatedFormData.USER_BIRTH === 0 || updatedFormData.USER_SEXE === -1) {
         return false;
       }
-    } else if (step === 2) {
     } else if (step === 3) {
       if (updatedFormData.USER_PASSWORD === "" || updatedFormData.USER_PASSWORDCONFIRM === "" || updatedFormData.USER_PASSWORD !== updatedFormData.USER_PASSWORDCONFIRM) {
         return false;
@@ -87,7 +86,7 @@ const SignupCommon: React.FC = () => {
         return;
       }
 
-      let newFormData = { ...formData };
+      const newFormData = { ...formData };
       newFormData.USER_BIRTH = Math.floor(new Date(newFormData.USER_BIRTH).getTime() / 1000);
       newFormData.USER_ROLEID = 1;
 

@@ -6,7 +6,7 @@ import simulation from "../../assets/simulation.svg";
 import Footer from "../footer.tsx";
 
 function Fonctionnalites() {
-  let slides = [
+  const slides = [
     {
       img: logoMg,
       title: "",

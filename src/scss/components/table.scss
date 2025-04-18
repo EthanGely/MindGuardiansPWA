@@ -1,0 +1,57 @@
+@use "../variables";
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    tr {
+      th {
+        padding: 10px 20px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.2em;
+        background-color: variables.$color-secondary-dark;
+        color: variables.$color-white;
+
+        &:first-child {
+          border-top-left-radius: 10px;
+          overflow: hidden;
+        }
+        &:last-child {
+          border-top-right-radius: 10px;
+        }
+      }
+    }
+  }
+
+    tbody {
+        tr {
+        &:nth-child(odd) {
+            background-color: variables.$color-gray-200;
+        }
+        &:nth-child(even) {
+            background-color: variables.$color-white;
+        }
+    
+        td {
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 1em;
+            color: variables.$color-dark;
+            border-bottom: 1px solid variables.$color-gray-400;
+
+            &:last-child {
+            border-bottom-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            overflow: hidden;
+            }
+
+            button.button {
+                border: 1px solid variables.$color-secondary;
+                margin: 0 auto;
+            }
+        }
+        }
+    }
+}

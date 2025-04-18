@@ -5,18 +5,18 @@ import SignupPatient from "./Patient/signupPatient";
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
 
   const [userType, setUserType] = useState(-1);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
+    /*try {
       //const responseLocation = await signUp(email, password);
       //navigate(responseLocation ? responseLocation : "/dashboard");
-    } catch (err: any) {
+    } catch (err: Error) {
       setError(err.message || "Signup failed");
-    }
+    }*/
   };
 
   if (userType === -1) {

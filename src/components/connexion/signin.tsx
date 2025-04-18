@@ -1,5 +1,4 @@
-// @ts-ignore
-import { useState, FormEvent, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import SelectRole from './selectRole';
 import Forms, { FormsProps } from '../utils/forms';
 
@@ -26,20 +25,20 @@ const Signin = () => {
         setUserLastName(event.target.value);
     };
 
-    const handleUserNaissanceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleUserNaissanceChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.value.length > userNaissance.length) {
             if (event.target.value.length === 2 && !event.target.value.includes('/')) {
                 event.target.value += '/';
             }
 
-            if (event.target.value.length === 5 && !event.target.value.includes('/\d{2}//')) {
+            if (event.target.value.length === 5 && !event.target.value.includes('/d{2}//')) {
                 event.target.value += '/';
             }
         }
 
         event.target.value = event.target.value.replace(/(\d{2})(\d{2})(\d{4})/, "$1/$2/$3")
         setUserNaissance(event.target.value);
-    };
+    }, [userNaissance]);
 
     const handleUserFontSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUserFontSize(event.target.value);
@@ -57,20 +56,16 @@ const Signin = () => {
         setUserMail(event.target.value);
     };
 
-    const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handlePasswordChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
         validateField(event.target, checkPasswordRequirements(event.target.value));
-    };
+    }, []);
 
-    const handleConfirmPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+    const handleConfirmPasswordChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setPasswordConfirm(event.target.value);
         validateField(event.target, checkPassword(event.target.value));
-    };
-
-    // @ts-ignore
-    const handleRoleChange = (roleId: number) => {
-        setRole(roleId);
-    };
+    }, []);
 
     const handleSignIn = async () => {
 
@@ -91,19 +86,19 @@ const Signin = () => {
             } else {
                 alert("C'est cassé");
             }
-            (error: any) => {
+            (error: Error) => {
                 console.error("Error:", error);
             }
         });
     };
 
-    function checkPassword(passConfirm: string) {
+    const checkPassword = useCallback((passConfirm: string) => {
         console.log(password, passConfirm);
         return password === passConfirm;
-    }
+    }, [password]);
 
     function checkPasswordRequirements(pass: string) {
-        const regexpCheck = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+        const regexpCheck = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
         return regexpCheck.test(pass);
     }
 
@@ -325,7 +320,7 @@ const Signin = () => {
                 });
                 break;
         }
-    }, [role, userNaissance, password, passwordConfirm, profession, usermail, userFirstName, userLastName, userFontSize, link]);
+    }, [role, userNaissance, password, passwordConfirm, profession, usermail, userFirstName, userLastName, userFontSize, link, handleConfirmPasswordChange, handlePasswordChange, handleUserNaissanceChange]);
 
     return (
         <>

@@ -1,3 +1,5 @@
+@use "../variables";
+
 /* SlideShow.less */
 .slide-show {
   position: relative;
@@ -59,7 +61,7 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  border: 2px solid $color-dark;
+  border: 2px solid variables.$color-dark;
   background-color: transparent;
   margin: 0 5px;
   cursor: pointer;
@@ -67,11 +69,11 @@
 
   &:hover,
   &:focus {
-    background-color: $color-secondary-light;
+    background-color: variables.$color-secondary-light;
   }
 
   &.active {
-    background-color: $color-secondary;
+    background-color: variables.$color-secondary;
   }
 }
 
@@ -81,5 +83,28 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+.react-multi-carousel-list {
+  padding: 24px 0;
+
+  .card__list {
+    padding: 0 60px;
+  }
+}
+
+.react-multiple-carousel__arrow {
+  &--left {
+    left: 0;
+  }
+
+  &--right {
+    right: 0;
+  }
+
+  &:disabled {
+    cursor: default;
+    background: rgba(0, 0, 0, 0.05);
   }
 }

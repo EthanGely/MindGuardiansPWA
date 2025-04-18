@@ -1,32 +1,39 @@
+@use "../spacers";
+@use "../variables";
+
 .accordion {
 
   &__button {
-    background-color: $color-gray-400;
-    color: $color-text;
+    background-color: variables.$color-gray-400;
+    color: variables.$color-text;
     cursor: pointer;
     padding: 18px;
-    margin-top: $spacer-4;
+    margin-top: spacers.$spacer-4;
     width: 100%;
     text-align: left;
     border: none;
     outline: none;
-    border-radius: $spacer-2;
+    border-radius: spacers.$spacer-2;
     transition: all 0.3s;
 
     &:hover,
     &:focus {
-      background-color: $color-gray-500;
+      background-color: variables.$color-gray-500;
     }
 
     &--active {
       background-color: #ccc;
+      border-radius:  spacers.$spacer-2 spacers.$spacer-2 0 0;
 
       & + .accordion__panel {
         max-height: 100%;
+        border-color: variables.$color-gray-400;
       }
     }
   }
   &__panel {
+    border: 1px solid transparent;
+    border-radius:  0 0 spacers.$spacer-2 spacers.$spacer-2;
     padding: 0 18px;
     background-color: white;
     max-height: 0;

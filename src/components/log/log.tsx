@@ -39,6 +39,6 @@ function Log() {
             ) : null}
         </div>
     );
-};
+}
 
 export default Log;

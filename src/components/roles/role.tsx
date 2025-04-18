@@ -1,10 +1,4 @@
 import { useEffect, useState } from "react";
-// @ts-ignore
-import Patient from "./patient/Patient";
-// @ts-ignore
-import Medical from "./medical/Medical";
-// @ts-ignore
-import Famille from "./famille/Famille";
 
 function Role() {
   const [role, setRole] = useState("");

@@ -1,9 +1,4 @@
-// @ts-ignore
-import Forms from '../utils/forms';
-// @ts-ignore
-import FormsProps from '../utils/forms';
-// @ts-ignore
-const PersonalData = (roleID: Number) => {
+const PersonalData = () => {
 
     return (
         <>

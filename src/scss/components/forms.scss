@@ -1,20 +1,30 @@
+@use "../spacers";
+@use "../variables";
+
 .form {
   display: flex;
   flex-direction: column;
-  gap: $spacer-3;
+  gap: spacers.$spacer-3;
   margin: 0 auto;
   width: 100%;
   max-width: 35vw;
-  padding: $spacer-4;
-  border-radius: $spacer-4;
+  padding: spacers.$spacer-4;
+  border-radius: spacers.$spacer-4;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
+  &--nostyle {
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    max-width: unset;
+  }
+
   &--padding {
-    padding: $spacer-4 $spacer-8;
+    padding: spacers.$spacer-4 spacers.$spacer-8;
   }
 
   &__fieldset {
-    margin: $spacer-2 0 0 0;
+    margin: spacers.$spacer-2 0 0 0;
     padding: 0;
     border: none;
   }
@@ -40,14 +50,29 @@
       padding: 0.5rem;
       border: 1px solid #ccc;
       border-radius: 8px;
-      background-color: $color-light;
-      color: $color-dark;
+      background-color: variables.$color-light;
+      color: variables.$color-dark;
 
       &:focus,
       &:-moz-placeholder-shown {
         outline: none;
-        border-color: $color-primary;
-        background-color: $color-light;
+        border-color: variables.$color-primary;
+        background-color: variables.$color-light;
+      }
+    }
+
+    textarea {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: variables.$color-light;
+      color: variables.$color-dark;
+
+      &:focus,
+      &:-moz-placeholder-shown {
+        outline: none;
+        border-color: variables.$color-primary;
+        background-color: variables.$color-light;
       }
     }
   }
@@ -59,12 +84,12 @@
   &__inputs {
     display: flex;
     justify-content: space-between;
-    gap: $spacer-5;
+    gap: spacers.$spacer-5;
 
     & input,
     & select {
       flex: 1;
-      color: $color-text;
+      color: variables.$color-text;
     }
 
     & input[type="text"],
@@ -73,10 +98,10 @@
     & input[type="time"],
     & input[type="password"],
     & select {
-      border-radius: $spacer-2;
+      border-radius: spacers.$spacer-2;
       background: transparent;
-      border: 1px solid $color-gray-400;
-      padding: $spacer-2 $spacer-4;
+      border: 1px solid variables.$color-gray-400;
+      padding: spacers.$spacer-2 spacers.$spacer-4;
     }
 
     & input[type=range] {
@@ -86,30 +111,30 @@
       background-color: transparent;
 
       &:focus::-webkit-slider-runnable-track {
-        background: $color-primary-light;
+        background: variables.$color-primary-light;
       }
 
       &::-moz-range-track,
       &::-webkit-slider-runnable-track {
         width: 100%;
-        height: $spacer-2;
+        height: spacers.$spacer-2;
         cursor: pointer;
-        background: $color-primary-light;
+        background: variables.$color-primary-light;
         border-radius: 20px;
       }
 
       &::-moz-range-thumb,
       &::-webkit-slider-thumb {
-        border: 1px solid $color-dark;
-        height: $spacer-5;
-        width: $spacer-5;
+        border: 1px solid variables.$color-dark;
+        height: spacers.$spacer-5;
+        width: spacers.$spacer-5;
         border-radius: 100%;
-        background: $color-light;
+        background: variables.$color-light;
         cursor: pointer;
       }
       &::-moz-range-progress {
-        background-color: $color-primary;
-        height: $spacer-2;
+        background-color: variables.$color-primary;
+        height: spacers.$spacer-2;
         border-radius: 20px;
       }
       /*
@@ -153,7 +178,7 @@
     &-wrapper {
       display: flex;
       justify-content: space-between;
-      gap: $spacer-3;
+      gap: spacers.$spacer-3;
       width: 100%;
     }
 
@@ -163,9 +188,9 @@
       justify-content: space-between;
       width: 100%;
       flex: 1;
-      padding: $spacer-2 $spacer-4;
-      border: 1px solid $color-gray-400;
-      border-radius: $spacer-2;
+      padding: spacers.$spacer-2 spacers.$spacer-4;
+      border: 1px solid variables.$color-gray-400;
+      border-radius: spacers.$spacer-2;
 
       & input[type="radio"] {
         position: absolute;
@@ -187,12 +212,12 @@
 
           &:after {
             content: "";
-            background: $color-gray-200;
+            background: variables.$color-gray-200;
             border-radius: 100%;
-            border: 1px solid $color-gray-400;
+            border: 1px solid variables.$color-gray-400;
             display: inline-block;
-            width: $spacer-4;
-            height: $spacer-4;
+            width: spacers.$spacer-4;
+            height: spacers.$spacer-4;
             position: relative;
             top: 50%;
             transform: translateY(-50%);
@@ -202,8 +227,8 @@
         }
 
         &:checked + label:after {
-          background-color: $color-primary;
-          box-shadow: inset 0 0 0 4px $color-gray-200;
+          background-color: variables.$color-primary;
+          box-shadow: inset 0 0 0 4px variables.$color-gray-200;
         }
       }
     }

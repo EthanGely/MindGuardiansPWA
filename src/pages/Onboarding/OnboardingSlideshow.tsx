@@ -5,7 +5,7 @@ import controller from "../../assets/controller.svg";
 import simulation from "../../assets/simulation.svg";
 
 function Fonctionnalites() {
-  let slides = [
+  const slides = [
     {
       img: logoMg,
       title: "",

@@ -1,3 +1,7 @@
+@use "sass:list";
+@use "spacers";
+@use "variables";
+
 /*
  * Génération des classes utilitaires d'espacements
  * Tous les niveaux de 0 à 14 sont généré pour tous les types de marges interne et externe (margin & padding - top/right/bottom/left)
@@ -8,10 +12,10 @@
  * .u-pr-8 { padding-right: $spacer-8; // 64px }
  * .u-pb-14 { padding-bottom: $spacer-14; // 144px }
  */
-@each $spacer-shortname, $spacer-longname in $spacer-shortnames {
-  @for $i from 1 through length($spacers) {
+@each $spacer-shortname, $spacer-longname in spacers.$spacer-shortnames {
+  @for $i from 1 through list.length(spacers.$spacers) {
     .u-#{$spacer-shortname}-#{$i - 1} {
-      #{$spacer-longname}: nth($spacers, $i);
+      #{$spacer-longname}: list.nth(spacers.$spacers, $i);
     }
   }
 }
@@ -35,10 +39,53 @@
   text-align: center;
 }
 
+.u-text-left {
+  text-align: left;
+}
+
 .u-c-p {
-  color: $color-primary;
+  color: variables.$color-primary;
 }
 
 .u-c-s {
-  color: $color-secondary;
+  color: variables.$color-secondary;
 }
+
+.u-w-100 {
+  width: 100%;
+}
+
+.u-flex {
+  display: flex;
+}
+.u-flex-column {
+  flex-direction: column;
+}
+.u-flex-row {
+  flex-direction: row;
+}
+.u-flex-wrap {
+  flex-wrap: wrap;
+}
+.u-flex-justify-center {
+  justify-content: center;
+}
+.u-flex-justify-between {
+  justify-content: space-between;
+}
+.u-flex-justify-around {
+  justify-content: space-around;
+}
+.u-flex-justify-evenly {
+  justify-content: space-evenly;
+}
+.u-flex-align-center {
+  align-items: center;
+}
+.u-flex-align-start {
+  align-items: flex-start;
+}
+.u-flex-align-end {
+  align-items: flex-end;
+}
+

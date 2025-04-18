@@ -48,7 +48,7 @@ const Signin = () => {
             } else {
                 alert("Invalid credentials");
             }
-            (error: any) => {
+            (error: Error) => {
                 console.error("Error:", error);
             }
         });

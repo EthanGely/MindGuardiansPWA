@@ -64,7 +64,7 @@ const Doctorlayout: React.FC = () => {
   }, []);
 
   const location = useLocation();
-  const isHome = location.pathname === "/docteur" || !!!localStorage.getItem("selectedPatient");
+  const isHome = location.pathname === "/docteur" || !localStorage.getItem("selectedPatient");
 
   return (
     <div className="layout">

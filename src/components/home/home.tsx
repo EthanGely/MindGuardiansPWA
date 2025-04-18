@@ -1,4 +1,6 @@
-function Home(user: any, handleNavigate: Function) {
+type HandleNavigate = (path: string) => void;
+
+function Home(user: any, handleNavigate: HandleNavigate) {
   return (
     <div>
       <h1>Welcome to the Homepage, {user.USER_FIRSTNAME} !</h1>

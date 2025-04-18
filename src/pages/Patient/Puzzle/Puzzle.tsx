@@ -12,7 +12,7 @@ const Puzzle: React.FC<{ isV2: boolean  }> = ({ isV2 }) => {
     const [image, setImage] = useState<string>("");
     const [pieces, setPieces] = useState<PuzzlePiece[]>([]);
     const [piecesV2, setPiecesV2] = useState<PuzzlePiecesV2[]>([]);
-    const [complexity, setComplexity] = useState<[number, number] | []>([]);
+    const [complexity, setComplexity] = useState<[number, number] | []>([2,2]);
 
     return (
         <div>
@@ -22,7 +22,7 @@ const Puzzle: React.FC<{ isV2: boolean  }> = ({ isV2 }) => {
                 Complexity:
                 <input
                   type="number"
-                  value={complexity[0]}
+                  value={0}
                   onChange={(e) => setComplexity([parseInt(e.target.value), parseInt(e.target.value)])}
                 />
               </label>
@@ -31,7 +31,7 @@ const Puzzle: React.FC<{ isV2: boolean  }> = ({ isV2 }) => {
           {!image ? (
             <ImageSelection onImageSelect={setImage} />
           ) : ((isV2 ? piecesV2.length === 0 : pieces.length === 0) ? (
-            (isV2 ? <PuzzleGeneratorV2 image={image} complexity={complexity} onGenerate={setPiecesV2} /> : <PuzzleGenerator image={image} complexity={complexity[0]} onGenerate={setPieces} />)
+            (isV2 ? <PuzzleGeneratorV2 image={image} complexity={complexity} onGenerate={setPiecesV2} /> : <PuzzleGenerator image={image} complexity={complexity[0] ?? 0} onGenerate={setPieces} />)
           ) : (
             (isV2 ? <PuzzleBoardV2 pieces={piecesV2} complexity={complexity} /> : <PuzzleBoard pieces={pieces} />)
           ))}

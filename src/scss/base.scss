@@ -1,8 +1,17 @@
+@use "variables";
+
 html * {
   box-sizing: border-box;
 }
 html {
-  background-color: $color-page-background;
+  background-color: variables.$color-page-background;
+}
+
+html,
+body {
+  //height: 100vh;
+  width: 100vw;
+  //overflow: hidden;
 }
 
 #root {
@@ -21,7 +30,7 @@ html {
   font-weight: 400;
   font-size: 20px;
   color-scheme: light dark;
-  color: $color-text;
+  color: variables.$color-text;
   //background-color: $color-page-background;
 
   font-synthesis: none;
@@ -31,12 +40,12 @@ html {
 
   a:not(.button):not(.card__link) {
     font-weight: 500;
-    color: $color-primary;
+    color: variables.$color-primary;
     text-decoration: inherit;
     transition: all 0.3s ease;
   }
   a:not(.button):not(.card__link):hover {
-    color: $color-primary-dark;
+    color: variables.$color-primary-dark;
   }
 
   .layout {
@@ -48,7 +57,7 @@ html {
 
     main.main-content {
       position: relative;
-      height: calc(85% - 15px);
+      flex: 1;
 
       .main-body {
         height: 100%;
@@ -68,20 +77,20 @@ html {
 #footerHomepage {
   margin-top: 5rem;
   padding: 1rem 0 0.5rem 0;
-  background-color: $color-light;
-  color: $color-gray-700;
+  background-color: variables.$color-light;
+  color: variables.$color-gray-700;
   font-size: 0.8rem;
   display: flex;
   flex-direction: column;
   position: relative;
-  background-color: $color-primary-lighter;
+  background-color: variables.$color-primary-lighter;
   z-index: 1;
 
   &::before {
     content: "";
     position: absolute;
     inset: 0 calc(50% - 50vw);
-    background-color: $color-primary-lighter;
+    background-color: variables.$color-primary-lighter;
     z-index: -1;
   }
 

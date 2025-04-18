@@ -5,8 +5,8 @@ import Inscription from "./signin";
 import LogoMindGaurdians from "../../assets/logo-mind-guardians.png";
 import Footer from "../footer";
 
-function choixLogSign() {
-  const [isLogIn, setIsLogIn] = useState<Number>(-1);
+function ChoixLogSign() {
+  const [isLogIn, setIsLogIn] = useState<number>(-1);
 
   /*getDataFromAPI("/user/getCurrent").then((data) => {
     if (data) {
@@ -59,4 +59,4 @@ function choixLogSign() {
     );
   }
 }
-export default choixLogSign;
+export default ChoixLogSign;
